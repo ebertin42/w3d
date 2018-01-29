@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/01/29 17:53:13 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/01/29 22:03:30 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define WALL	1;
 # define SPAWN	3;
 # define WALK	0;
+# define BLOC	64;
 
 typedef struct		s_intersection
 {
