@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/01/30 11:31:52 by fde-souz         ###   ########.fr        #
+#    Updated: 2018/01/31 11:55:52 by fde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,12 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 INC_NAME = wolf3d.h
 
-SRC_NAME = main.c \
-		   parser.c \
-		   translate.c \
-		   intersection.c
+SRC_NAME =	main.c \
+			image.c \
+			parser.c \
+			translate.c \
+			intersection.c 
+
 
 
 all: $(NAME)
