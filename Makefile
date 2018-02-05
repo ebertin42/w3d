@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/01/31 11:55:52 by fde-souz         ###   ########.fr        #
+#    Updated: 2018/02/05 15:23:08 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,18 +37,19 @@ SRC_NAME =	main.c \
 			translate.c \
 			intersection.c 
 
-
-
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LFT_PATH)
-	$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft -lmlx -lm -framework OpenGL -framework AppKit
+	@gcc ./Mke_src/loup.c -lm -L $(LFT_PATH) -lft
+	@./a.out
+	@rm a.out
+	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft -lmlx -lm -framework OpenGL -framework AppKit
 
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	$(CC) $(CC_FLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(CC_FLAGS) $(INC) -o $@ -c $<
 
 clean:
 	@make -C $(LFT_PATH) clean
@@ -61,4 +62,6 @@ clean_o:
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_PATH)
 
-re: fclean all
+re: 
+	@make fclean 
+	@make all
