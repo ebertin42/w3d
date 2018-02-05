@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 11:28:42 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/05 11:39:39 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define WALL	1
 # define SPAWN	3
 # define WALK	0
-# define BLOC	64.00
+# define BLOC	256.00
 # define RAD	(M_PI / 180.00)
 
 typedef struct		s_intersection

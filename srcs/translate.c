@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:03:15 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/01/29 17:53:22 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/05 11:29:39 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	translate(t_line *data, t_win_info *w)
 			if (ft_atoi(data[y].line[x]) == 3)
 			{
 				flag_start++;
-				w->player.start_x = x * 64;
-				w->player.start_y = y * 64;
+				w->player.start_x = x * BLOC;
+				w->player.start_y = y * BLOC;
 				w->map[y][x] = 3;
 			}
 			else
