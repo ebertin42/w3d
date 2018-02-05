@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 13:39:09 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/05 15:18:52 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	deplacement(t_win_info *w, int keycode)
 		else if (sin(angle) < 0)
 			w->player.pos_y -= 10 * fabs(sin(angle));
 	}
-	if (w->map[((int)(w->player.pos_y) / 64)-1][((int)(w->player.pos_x) / 64)] == 1)
+/*	if (w->map[((int)(w->player.pos_y) / 64)-1][((int)(w->player.pos_x) / 64)] == 1)
 	{
 		printf("test\n");
 		w->player.pos_x = tmp_x;
 		w->player.pos_y = tmp_y;
-	}
+	}*/
 }
 
 int key_hook(int key, void *param)
