@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 15:18:52 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/05 18:49:50 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ void	deplacement(t_win_info *w, int keycode)
 	if (keycode == 13)
 	{
 		if(cos(angle) > 0)
-			w->player.pos_x += 10 * fabs(cos(angle)); 
+			w->player.pos_x += 11 * fabs(cos(angle)); 
 		else if(cos(angle) < 0)
-			w->player.pos_x += -1 * (10 * fabs(cos(angle)));
+			w->player.pos_x += -1 * (11 * fabs(cos(angle)));
 		if (sin(angle) > 0)
-			w->player.pos_y += -1 * (10 * fabs(sin(angle)));
+			w->player.pos_y += -1 * (11 * fabs(sin(angle)));
 		else if (sin(angle) < 0)
-			w->player.pos_y += 10 * fabs(sin(angle));
+			w->player.pos_y += 11 * fabs(sin(angle));
 	}
 	else if (keycode == 1)
 	{
 		if(cos(angle) > 0)
-			w->player.pos_x -= 10 * fabs(cos(angle)); 
+			w->player.pos_x -= 11 * fabs(cos(angle)); 
 		else if(cos(angle) < 0)
 			w->player.pos_x -= -1 * (10 * fabs(cos(angle)));
 		if (sin(angle) > 0)
@@ -55,12 +55,13 @@ void	deplacement(t_win_info *w, int keycode)
 		else if (sin(angle) < 0)
 			w->player.pos_y -= 10 * fabs(sin(angle));
 	}
-/*	if (w->map[((int)(w->player.pos_y) / 64)-1][((int)(w->player.pos_x) / 64)] == 1)
+	printf("%d | %d\n", ((int)(w->player.pos_y) / (int)BLOC),((int)(w->player.pos_x) / (int)BLOC) );
+	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) / (int)BLOC) +1] == WALL)
 	{
 		printf("test\n");
 		w->player.pos_x = tmp_x;
 		w->player.pos_y = tmp_y;
-	}*/
+	}
 }
 
 int key_hook(int key, void *param)
@@ -76,7 +77,7 @@ int key_hook(int key, void *param)
 		w->player.dir_x--;
 	if (key == 1 || key == 13)
 		deplacement(w, key);
-	printf("%f\n",w->player.dir_x);
+//	printf("%f\n",w->player.dir_x);
 	mlx_destroy_image(w->mlx, w->img.img);
 	w->img.img = mlx_new_image(w->mlx, SIZE_X, SIZE_Y);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);

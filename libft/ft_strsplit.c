@@ -6,11 +6,11 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:50:24 by fde-souz          #+#    #+#             */
-/*   Updated: 2017/12/15 17:32:40 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/05 14:23:05 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft/includes/libft.h"
 
 char			**ft_strsplit(char const *s, char c)
 {

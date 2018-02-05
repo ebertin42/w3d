@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 13:11:26 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/05 17:48:12 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		raycasting(t_win_info w)
 			b = find_intersection_ver(alpha, w);
 		pa = sqrt(powf((w.player.pos_x - a.x), 2) + powf((w.player.pos_y - a.y), 2));
 		pb = sqrt(powf((w.player.pos_x - b.x), 2) + powf((w.player.pos_y - b.y), 2));
-		beta = alpha > w.player.dir_x ? 30 : -30;
+		beta = alpha > w.player.dir_x ? -30 : -30;
 		dist = pa > pb ? pb * cos(beta * RAD) : pa * cos(beta * RAD);
 		h_wall = dist < 10 ? SIZE_Y : BLOC / dist * w.dist_player_proj;
 		draw(x, h_wall, &w);

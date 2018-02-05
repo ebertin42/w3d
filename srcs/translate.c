@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:03:15 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 11:29:39 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/05 18:53:11 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ int	translate(t_line *data, t_win_info *w)
 			}
 			else
 				w->map[y][x] = (double)ft_atoi(data[y].line[x]);
+			x++;
+		}
+		y++;
+	}
+	y = 0;
+	while (y != 32)
+	{
+		x = 0;
+		while (x != 32)
+		{
+			if (w->map[y][x] == 3)
+			{
+				if(w->map[y][x + 1] != 0 || w->map[y][x - 1] != 0 || w->map[y + 1][x] != 0 || w->map[y - 1][x] != 0)
+					exit(0);
+				else 
+					break ;
+			}
 			x++;
 		}
 		y++;
