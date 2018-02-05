@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/01/31 14:40:23 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/05 11:28:42 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define SIZE_X 640.00
 # define SIZE_Y 400.00
+# define KEY_ESC 53
 # define WALL	1
 # define SPAWN	3
 # define WALK	0
