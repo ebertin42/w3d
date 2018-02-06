@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 11:39:39 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/06 12:59:24 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,32 @@
 
 # define SIZE_X 640.00
 # define SIZE_Y 400.00
-# define KEY_ESC 53
+# define BLOC	256.00
+# define RAD	(M_PI / 180.00)
+
+/*TAILLE DE LA FENETRE*/
+
+# define WIN_X 720
+# define WIN_Y 480
+
+/*TAILLE DE L'IMAGE*/
+
+# define SIZE_X 640.00
+# define SIZE_Y 400.00
+
+/*MAP*/
+
 # define WALL	1
 # define SPAWN	3
 # define WALK	0
-# define BLOC	256.00
-# define RAD	(M_PI / 180.00)
+
+/*COMMANDES*/
+
+# define FORWARD	13
+# define BACKWARD	1
+# define LEFT		0
+# define RIGHT		2
+# define KEY_ESC	53
 
 typedef struct		s_intersection
 {
@@ -37,8 +57,8 @@ typedef struct		s_intersection
 typedef struct		s_line
 {
 	int				nb_point;
-	char			**line;
 	int				cl;
+	char			**line;
 }					t_line;
 
 typedef struct		s_player
@@ -63,13 +83,13 @@ typedef struct		s_img
 
 typedef struct		s_win_info
 {
-	void					*mlx;
-	void					*win;
-	t_player				player;
-	t_img					img;
-	double					map[32][32];
-	int						s_player;
-	double					dist_player_proj;
+	void			*mlx;
+	void			*win;
+	t_player		player;
+	t_img			img;
+	double			map[32][32];
+	double			dist_player_proj;
+	int				s_player;
 }					t_win_info;
 
 t_line				*read_data(char *file);
@@ -77,8 +97,7 @@ int					count_line_file(char *file);
 int					check_good_nbdata(t_line *data);
 int					translate(t_line *data, t_win_info *w);
 int					raycasting(t_win_info w);
-//t_intersection		find_intersection_ver(double alpha, t_win_info w);
 void				put_pixel_image(int x, int y, int color, t_win_info *w);
-//t_intersection		find_intersection_hor(double alpha, t_win_info w);
+double				conv_rad(double angle);
 
 #endif
