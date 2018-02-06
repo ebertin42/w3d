@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 14:01:24 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 19:01:17 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	init_data(t_win_info *w)
 {
+	w->player.sprint = 0;
+	w->player.life = 100;
 	w->player.dir_x = 0;
 	w->player.dir_y = 0;
 	w->player.pos_x = w->player.start_x;
@@ -29,34 +31,39 @@ void	deplacement(t_win_info *w, int keycode)
 	double angle;
 	double tmp_x;
 	double tmp_y;
+	int		speed;
 
 	angle = w->player.dir_x * RAD;
 	tmp_x = w->player.pos_x;
 	tmp_y = w->player.pos_y;
+	if (w->player.sprint == 1)
+		speed = 20;
+	else
+		speed = 45;
 	if (keycode == 13)
 	{
 		if(cos(angle) > 0)
-			w->player.pos_x += 11 * fabs(cos(angle)); 
+			w->player.pos_x += speed * fabs(cos(angle)); 
 		else if(cos(angle) < 0)
-			w->player.pos_x += -1 * (11 * fabs(cos(angle)));
+			w->player.pos_x += -1 * (speed * fabs(cos(angle)));
 		if (sin(angle) > 0)
-			w->player.pos_y += -1 * (11 * fabs(sin(angle)));
+			w->player.pos_y += -1 * (speed * fabs(sin(angle)));
 		else if (sin(angle) < 0)
-			w->player.pos_y += 11 * fabs(sin(angle));
+			w->player.pos_y += speed * fabs(sin(angle));
 	}
 	else if (keycode == 1)
 	{
 		if(cos(angle) > 0)
-			w->player.pos_x -= 11 * fabs(cos(angle)); 
+			w->player.pos_x -= speed * fabs(cos(angle)); 
 		else if(cos(angle) < 0)
-			w->player.pos_x -= -1 * (10 * fabs(cos(angle)));
+			w->player.pos_x -= -1 * (speed * fabs(cos(angle)));
 		if (sin(angle) > 0)
-			w->player.pos_y -= -1 * (10 * fabs(sin(angle)));
+			w->player.pos_y -= -1 * (speed * fabs(sin(angle)));
 		else if (sin(angle) < 0)
-			w->player.pos_y -= 10 * fabs(sin(angle));
+			w->player.pos_y -= speed * fabs(sin(angle));
 	}
 	printf("%d | %d\n", ((int)(w->player.pos_y) / (int)BLOC),((int)(w->player.pos_x) / (int)BLOC) );
-	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) / (int)BLOC) +1] == WALL)
+	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) / (int)BLOC)] == WALL)
 	{
 		printf("test\n");
 		w->player.pos_x = tmp_x;
@@ -77,6 +84,13 @@ int key_hook(int key, void *param)
 		w->player.dir_x--;
 	if (key == 1 || key == 13)
 		deplacement(w, key);
+	if (key == SPRINT)
+	{
+		if (w->player.sprint == 0)
+			w->player.sprint = 1;
+		else 
+			w->player.sprint = 0;
+	}
 //	printf("%f\n",w->player.dir_x);
 	mlx_destroy_image(w->mlx, w->img.img);
 	w->img.img = mlx_new_image(w->mlx, SIZE_X, SIZE_Y);

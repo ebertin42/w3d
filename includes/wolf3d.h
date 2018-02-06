@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 13:59:04 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 18:55:09 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define LEFT		0
 # define RIGHT		2
 # define KEY_ESC	53
+# define SPRINT		257
 
 typedef struct		s_intersection
 {
@@ -58,6 +59,8 @@ typedef struct		s_player
 	double			dir_x;
 	double			dir_y;
 	double			fov;
+	int				sprint;
+	int				life;
 }					t_player;
 
 typedef struct		s_img
