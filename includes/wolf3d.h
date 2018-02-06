@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 12:59:24 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 13:59:04 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,13 @@
 # define SIZE_Y 400.00
 # define BLOC	256.00
 # define RAD	(M_PI / 180.00)
-
-/*TAILLE DE LA FENETRE*/
-
 # define WIN_X 720
 # define WIN_Y 480
-
-/*TAILLE DE L'IMAGE*/
-
 # define SIZE_X 640.00
 # define SIZE_Y 400.00
-
-/*MAP*/
-
 # define WALL	1
 # define SPAWN	3
 # define WALK	0
-
-/*COMMANDES*/
-
 # define FORWARD	13
 # define BACKWARD	1
 # define LEFT		0

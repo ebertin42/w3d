@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 18:49:50 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 14:01:24 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		main(int ac, char **av)
 		printf("\n");
 	}
 	w.mlx = mlx_init();
-	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "fractol");
+	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
 	init_data(&w);
 	raycasting(w);
 	mlx_hook(w.win, 17, 0, ft_close, &w);
