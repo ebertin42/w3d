@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:50:21 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/01/25 13:15:21 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/06 19:57:27 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_line			*read_data(char *file)
 	i = 0;
 	data = alloc_data(file);
 	if ((fd = open(file, O_RDONLY)) < 0)
-		return (NULL);
+		read_error(0);
 	while ((cl = get_next_line(fd, &line)) > 0)
 	{
 		if ((!*line && !i) || cl == -1)
@@ -62,14 +62,14 @@ int				count_line_file(char *file)
 	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (0);
+		read_error(0);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		i++;
 		free(line);
 	}
 	if (ret == -1)
-		return (0);
+		read_error(1);
 	close(fd);
 	return (i);
 }
@@ -81,12 +81,12 @@ int				check_good_nbdata(t_line *data)
 
 	i = 0;
 	if (data[0].cl != 32)
-		return (0);
+		map_error(1);
 	nb_point = 32;
 	while (i < data[0].cl)
 	{
 		if (nb_point != data[i].nb_point)
-			return (0);
+			map_error(1);
 		i++;
 	}
 	return (1);

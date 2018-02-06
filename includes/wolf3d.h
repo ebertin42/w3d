@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 18:55:09 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 19:52:55 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,9 @@ int					translate(t_line *data, t_win_info *w);
 int					raycasting(t_win_info w);
 void				put_pixel_image(int x, int y, int color, t_win_info *w);
 double				conv_rad(double angle);
+void				cursor(t_win_info *w);
+void				map_error(int error);
+void				read_error(int error);
+
 
 #endif

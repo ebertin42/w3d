@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 19:01:17 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 19:31:13 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	deplacement(t_win_info *w, int keycode)
 		else if (sin(angle) < 0)
 			w->player.pos_y -= speed * fabs(sin(angle));
 	}
-	printf("%d | %d\n", ((int)(w->player.pos_y) / (int)BLOC),((int)(w->player.pos_x) / (int)BLOC) );
 	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) / (int)BLOC)] == WALL)
 	{
 		printf("test\n");
@@ -79,9 +78,9 @@ int key_hook(int key, void *param)
 	if (key == KEY_ESC)
 		exit(0);
 	if (key == 0)
-		w->player.dir_x++;
+		w->player.dir_x += 2;
 	if (key == 2)
-		w->player.dir_x--;
+		w->player.dir_x -= 2;
 	if (key == 1 || key == 13)
 		deplacement(w, key);
 	if (key == SPRINT)
@@ -91,7 +90,6 @@ int key_hook(int key, void *param)
 		else 
 			w->player.sprint = 0;
 	}
-//	printf("%f\n",w->player.dir_x);
 	mlx_destroy_image(w->mlx, w->img.img);
 	w->img.img = mlx_new_image(w->mlx, SIZE_X, SIZE_Y);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);

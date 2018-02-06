@@ -6,11 +6,33 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:03:15 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 18:53:11 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 20:11:11 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+static void	nowall(double map[32][32])
+{
+	int x;
+
+	x = 0;
+	while(x != 31)
+	{
+		if(map[0][x] != 1)
+			map_error(1);
+		else if(map[31][x] != 1)
+			map_error(1);
+	x++;
+	}
+	while(x != 31)
+	{
+		if (map[x][0] != 1)
+			map_error(1);
+		else if (map[x][31] != 1)
+			map_error(1);
+	}
+}
 
 int	translate(t_line *data, t_win_info *w)
 {
@@ -47,7 +69,7 @@ int	translate(t_line *data, t_win_info *w)
 			if (w->map[y][x] == 3)
 			{
 				if(w->map[y][x + 1] != 0 || w->map[y][x - 1] != 0 || w->map[y + 1][x] != 0 || w->map[y - 1][x] != 0)
-					exit(0);
+					map_error(0);
 				else 
 					break ;
 			}
@@ -55,6 +77,7 @@ int	translate(t_line *data, t_win_info *w)
 		}
 		y++;
 	}
+	nowall(w->map);
 	if (flag_start != 1)
 		return (0);
 	return (1);
