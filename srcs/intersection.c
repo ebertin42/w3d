@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/05 17:48:12 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/06 18:29:54 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int		raycasting(t_win_info w)
 		beta = alpha > w.player.dir_x ? -30 : -30;
 		dist = pa > pb ? pb * cos(beta * RAD) : pa * cos(beta * RAD);
 		h_wall = dist < 10 ? SIZE_Y : BLOC / dist * w.dist_player_proj;
+		h_wall = h_wall > SIZE_Y ? SIZE_Y - 1 : h_wall;
 		draw(x, h_wall, &w);
 		x++;
 	}
