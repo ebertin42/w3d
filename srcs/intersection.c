@@ -6,11 +6,22 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/07 15:00:46 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:44:01 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+int		get_color(int y, int h_wall, int column, t_win_info w)
+{
+	int color;
+
+	y = ((double)y / (double)h_wall) * BLOC;
+	color = w.tex.str[(column * 4) + ((int)BLOC * 4 * y)];
+	color = color | w.tex.str[(column * 4) + ((int)BLOC * 4 * y) + 1] << 8;
+	color = color | w.tex.str[(column * 4) + ((int)BLOC * 4 * y) + 2] << 16;
+	return (color);
+}
 
 t_intersection find_intersection_hor(double alpha, t_win_info w)
 {
@@ -71,7 +82,7 @@ t_intersection find_intersection_ver(double alpha, t_win_info w)
 	}
 	return (a);
 }
-
+/*
 void	draw(int x, int h_wall, t_win_info *w)
 {
 	int y;
@@ -79,7 +90,29 @@ void	draw(int x, int h_wall, t_win_info *w)
 	y = SIZE_Y / 2 - h_wall / 2;
 	while(y < SIZE_Y / 2 + h_wall / 2)
 	{
+	if (y < SIZE_Y && y >= 0)
 		put_pixel_image(x, y, 0xff0000, w);
+		y++;
+	}
+	while(y < SIZE_Y - 1)
+	{
+		put_pixel_image(x, y, 0x808080, w);
+		y++;
+	}
+}*/
+
+void	draw(int x, int h_wall, t_win_info *w, int column)
+{
+	int y;
+	int yim;
+
+	y = SIZE_Y / 2 - h_wall / 2;
+	yim = 0;
+	while(y < SIZE_Y / 2 + h_wall / 2)
+	{
+		if (y < SIZE_Y && y >= 0)
+			put_pixel_image(x, y, get_color(yim, h_wall, column, *w), w);
+		yim++;
 		y++;
 	}
 	while(y < SIZE_Y - 1)
@@ -119,9 +152,9 @@ int		raycasting(t_win_info w)
 		pb = sqrt(powf((w.player.pos_x - b.x), 2) + powf((w.player.pos_y - b.y), 2));
 		beta = alpha > w.player.dir_x ? -30 : -30;
 		dist = pa > pb ? pb * cos(beta * RAD) : pa * cos(beta * RAD);
-		h_wall = dist < 10 ? SIZE_Y : BLOC / dist * w.dist_player_proj;
-		h_wall = h_wall > SIZE_Y ? SIZE_Y - 1 : h_wall;
-		draw(x, h_wall, &w);
+		h_wall = BLOC / dist * w.dist_player_proj;
+	//	h_wall = h_wall > SIZE_Y ? SIZE_Y - 1 : h_wall;
+		draw(x, h_wall, &w, pa > pb ? (int)b.y % (int)BLOC : (int)a.x % (int)BLOC);
 		x++;
 	}
 	hud(&w);

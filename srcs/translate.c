@@ -6,11 +6,11 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:03:15 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 20:11:11 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:09:16 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "../includes/wolf3d.h"
 
 static void	nowall(double map[32][32])
 {

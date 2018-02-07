@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 19:31:13 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:38:57 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	deplacement(t_win_info *w, int keycode)
 	}
 	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) / (int)BLOC)] == WALL)
 	{
-		printf("test\n");
 		w->player.pos_x = tmp_x;
 		w->player.pos_y = tmp_y;
 	}
@@ -111,6 +110,8 @@ int		main(int ac, char **av)
 	t_win_info	w;
 	int			x;
 	int			y;
+	int			a;
+	int			b;
 
 	if (ac != 2)
 		return (0);
@@ -131,6 +132,8 @@ int		main(int ac, char **av)
 	}
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
+	w.tex.img = mlx_xpm_file_to_image (w.mlx, "./assets/small_brick_test.XPM", &a, &b);
+	w.tex.str = mlx_get_data_addr(w.tex.img, &w.tex.b, &w.tex.s, &w.tex.e);
 	init_data(&w);
 	raycasting(w);
 	mlx_hook(w.win, 17, 0, ft_close, &w);

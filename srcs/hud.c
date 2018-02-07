@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:11:17 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/07 15:01:23 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:34:09 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	image_hud(t_win_info *w)
 	int len;
 	void *h;
 
-	h = mlx_xpm_file_to_image(w->mlx, "h.xpm", &len, &hei);
+	h = mlx_xpm_file_to_image(w->mlx, "assets/h.xpm", &len, &hei);
 	mlx_put_image_to_window(w->mlx, w->win, h,(SIZE_X / 2) + (SIZE_X / 4) + (SIZE_X/16) - 25 , 13);
 }
