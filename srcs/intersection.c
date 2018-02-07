@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 19:18:07 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:00:46 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ int		raycasting(t_win_info w)
 		draw(x, h_wall, &w);
 		x++;
 	}
-	cursor(&w);
+	hud(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.img, 0, 0);
+	image_hud(&w);
 	return (0);
 }

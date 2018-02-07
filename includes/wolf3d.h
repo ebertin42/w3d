@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/06 19:52:55 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/07 14:53:25 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ typedef struct		s_intersection
 	double			x;
 	double			y;
 }					t_intersection;
+
+typedef struct		s_rectangle
+{
+	int				x;
+	int				y;
+	int				color;
+	int				hei;
+	int				len;
+}					t_rectangle;
 
 typedef struct		s_line
 {
@@ -93,6 +102,7 @@ double				conv_rad(double angle);
 void				cursor(t_win_info *w);
 void				map_error(int error);
 void				read_error(int error);
-
+void				hud(t_win_info *w);
+void				image_hud(t_win_info *w);
 
 #endif
