@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/02/06 19:37:28 by vgauther         ###   ########.fr        #
+#    Updated: 2018/02/08 13:56:31 by fde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC_NAME =	hud.c \
 			parser.c  \
 			radian.c   \
 			translate.c \
-			intersection.c 
+			intersection.c \
+			load_texture.c 
 
 all: $(NAME)
 
@@ -65,6 +66,6 @@ clean_o:
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_PATH)
 
-re: 
-	@make fclean 
+re:
+	@make fclean
 	@make all

@@ -6,20 +6,20 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/07 15:44:01 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:17:41 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int		get_color(int y, int h_wall, int column, t_win_info w)
+int		get_color(int y, int h_wall, int column, t_win_info w, int texid)
 {
 	int color;
 
 	y = ((double)y / (double)h_wall) * BLOC;
-	color = w.tex.str[(column * 4) + ((int)BLOC * 4 * y)];
-	color = color | w.tex.str[(column * 4) + ((int)BLOC * 4 * y) + 1] << 8;
-	color = color | w.tex.str[(column * 4) + ((int)BLOC * 4 * y) + 2] << 16;
+	color = w.tex[texid].str[(column * 4) + ((int)BLOC * 4 * y)];
+	color += w.tex[texid].str[(column * 4) + ((int)BLOC * 4 * y) + 1] * 256;
+	color += (w.tex[texid].str[(column * 4) + ((int)BLOC * 4 * y) + 2] * 256) * 256;
 	return (color);
 }
 
@@ -82,41 +82,29 @@ t_intersection find_intersection_ver(double alpha, t_win_info w)
 	}
 	return (a);
 }
-/*
-void	draw(int x, int h_wall, t_win_info *w)
-{
-	int y;
 
-	y = SIZE_Y / 2 - h_wall / 2;
-	while(y < SIZE_Y / 2 + h_wall / 2)
-	{
-	if (y < SIZE_Y && y >= 0)
-		put_pixel_image(x, y, 0xff0000, w);
-		y++;
-	}
-	while(y < SIZE_Y - 1)
-	{
-		put_pixel_image(x, y, 0x808080, w);
-		y++;
-	}
-}*/
-
-void	draw(int x, int h_wall, t_win_info *w, int column)
+void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
 {
 	int y;
 	int yim;
 
 	y = SIZE_Y / 2 - h_wall / 2;
 	yim = 0;
-	while(y < SIZE_Y / 2 + h_wall / 2)
+	if (y < 0)
+	{
+		yim -= y;
+		y = 0;
+	}
+	while (y < SIZE_Y / 2 + h_wall / 2 && y < SIZE_Y - 1)
 	{
 		if (y < SIZE_Y && y >= 0)
-			put_pixel_image(x, y, get_color(yim, h_wall, column, *w), w);
+			put_pixel_image(x, y, get_color(yim, h_wall, column, *w, texid), w);
 		yim++;
 		y++;
 	}
-	while(y < SIZE_Y - 1)
+	while (y < SIZE_Y - 1)
 	{
+		put_pixel_image(x, SIZE_Y - y, 0x808080, w);
 		put_pixel_image(x, y, 0x808080, w);
 		y++;
 	}
@@ -133,6 +121,7 @@ int		raycasting(t_win_info w)
 	int				dist;
 	int				beta;
 	int				h_wall;
+	int				texid;
 
 	x = 0;
 	while (x <= SIZE_X)
@@ -150,11 +139,11 @@ int		raycasting(t_win_info w)
 			b = find_intersection_ver(alpha, w);
 		pa = sqrt(powf((w.player.pos_x - a.x), 2) + powf((w.player.pos_y - a.y), 2));
 		pb = sqrt(powf((w.player.pos_x - b.x), 2) + powf((w.player.pos_y - b.y), 2));
-		beta = alpha > w.player.dir_x ? -30 : -30;
-		dist = pa > pb ? pb * cos(beta * RAD) : pa * cos(beta * RAD);
+		beta = alpha > w.player.dir_x ? 30 : -30;
+		dist = pa > pb ? pb : pa;
 		h_wall = BLOC / dist * w.dist_player_proj;
-	//	h_wall = h_wall > SIZE_Y ? SIZE_Y - 1 : h_wall;
-		draw(x, h_wall, &w, pa > pb ? (int)b.y % (int)BLOC : (int)a.x % (int)BLOC);
+		texid = pa > pb ? ((abs((int)alpha) % 360) > 90 && (abs((int)alpha) % 360) < 270 ? 0 : 1) : ((abs((int)alpha) % 360) > 0 && (abs((int)alpha) % 360) < 180 ? 0 : 1);
+		draw(x, h_wall, &w, pa > pb ? (int)b.y % (int)BLOC : (int)a.x % (int)BLOC, texid);
 		x++;
 	}
 	hud(&w);

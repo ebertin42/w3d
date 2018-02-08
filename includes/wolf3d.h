@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/07 15:41:57 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:34:51 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define SIZE_X 640.00
-# define SIZE_Y 400.00
-# define BLOC	256.00
+# define SIZE_X 720
+# define SIZE_Y 480
+# define BLOC	128.00
 # define RAD	(M_PI / 180.00)
 # define WIN_X 720
 # define WIN_Y 480
-# define SIZE_X 640.00
-# define SIZE_Y 400.00
 # define WALL	1
 # define SPAWN	3
 # define WALK	0
@@ -87,7 +85,7 @@ typedef struct		s_win_info
 	void			*win;
 	t_player		player;
 	t_img			img;
-	t_img			tex;
+	t_img			tex[4];
 	double			map[32][32];
 	double			dist_player_proj;
 	int				s_player;
@@ -105,6 +103,8 @@ void				map_error(int error);
 void				read_error(int error);
 void				hud(t_win_info *w);
 void				image_hud(t_win_info *w);
-int					get_color(int y, int h_wall, int column, t_win_info w);
-void				draw(int x, int h_wall, t_win_info *w, int column);
+int					get_color(int y, int h_wall, int column, t_win_info w, int texid);
+void				draw(int x, int h_wall, t_win_info *w, int column, int texid);
+int					load_texture(t_win_info *w);
+
 #endif

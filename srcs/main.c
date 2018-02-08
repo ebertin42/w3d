@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/07 15:38:57 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:04:54 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_data(t_win_info *w)
 	w->player.pos_x = w->player.start_x;
 	w->player.pos_y = w->player.start_y;
 	w->player.fov = 60;
-	w->dist_player_proj = (SIZE_Y / 2) / tan((w->player.fov / 2) * RAD);
+	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
 	w->img.img = mlx_new_image(w->mlx, SIZE_X, SIZE_Y);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 }
@@ -43,7 +43,7 @@ void	deplacement(t_win_info *w, int keycode)
 	if (keycode == 13)
 	{
 		if(cos(angle) > 0)
-			w->player.pos_x += speed * fabs(cos(angle)); 
+			w->player.pos_x += speed * fabs(cos(angle));
 		else if(cos(angle) < 0)
 			w->player.pos_x += -1 * (speed * fabs(cos(angle)));
 		if (sin(angle) > 0)
@@ -54,7 +54,7 @@ void	deplacement(t_win_info *w, int keycode)
 	else if (keycode == 1)
 	{
 		if(cos(angle) > 0)
-			w->player.pos_x -= speed * fabs(cos(angle)); 
+			w->player.pos_x -= speed * fabs(cos(angle));
 		else if(cos(angle) < 0)
 			w->player.pos_x -= -1 * (speed * fabs(cos(angle)));
 		if (sin(angle) > 0)
@@ -77,21 +77,18 @@ int key_hook(int key, void *param)
 	if (key == KEY_ESC)
 		exit(0);
 	if (key == 0)
-		w->player.dir_x += 2;
+		w->player.dir_x += 5;
 	if (key == 2)
-		w->player.dir_x -= 2;
+		w->player.dir_x -= 5;
 	if (key == 1 || key == 13)
 		deplacement(w, key);
 	if (key == SPRINT)
 	{
 		if (w->player.sprint == 0)
 			w->player.sprint = 1;
-		else 
+		else
 			w->player.sprint = 0;
 	}
-	mlx_destroy_image(w->mlx, w->img.img);
-	w->img.img = mlx_new_image(w->mlx, SIZE_X, SIZE_Y);
-	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 	raycasting(*w);
 	return(0);
 }
@@ -110,8 +107,6 @@ int		main(int ac, char **av)
 	t_win_info	w;
 	int			x;
 	int			y;
-	int			a;
-	int			b;
 
 	if (ac != 2)
 		return (0);
@@ -132,9 +127,8 @@ int		main(int ac, char **av)
 	}
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
-	w.tex.img = mlx_xpm_file_to_image (w.mlx, "./assets/small_brick_test.XPM", &a, &b);
-	w.tex.str = mlx_get_data_addr(w.tex.img, &w.tex.b, &w.tex.s, &w.tex.e);
 	init_data(&w);
+	printf("%d\n", load_texture(&w));
 	raycasting(w);
 	mlx_hook(w.win, 17, 0, ft_close, &w);
 	mlx_hook(w.win, 2, 0, key_hook, &w);
