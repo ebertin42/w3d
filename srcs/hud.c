@@ -6,11 +6,11 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:11:17 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/08 14:21:01 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:35:45 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "wolf3d.h"
 
 void	cursor(t_win_info *w)
 {

@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/07 15:37:24 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/08 13:55:43 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define WALL	1
 # define SPAWN	3
 # define WALK	0
+# define MONSTER 7
 # define FORWARD	13
 # define BACKWARD	1
 # define LEFT		0
@@ -105,5 +106,6 @@ void				map_error(int error);
 void				read_error(int error);
 void				hud(t_win_info *w);
 void				image_hud(t_win_info *w);
-
+int					get_color(int y, int h_wall, int column, t_win_info w);
+void				draw(int x, int h_wall, t_win_info *w, int column);
 #endif

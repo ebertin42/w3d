@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:11:17 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/07 14:25:21 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:34:09 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,11 @@ void	life_point(t_win_info *w)
 {
 	t_rectangle r;
 
-	r.x = (SIZE_X / 2) + (SIZE_X / 4);
-	r.y = SIZE_Y / 8;
+	r.x = (SIZE_X / 2) + (SIZE_X / 4) + (SIZE_X/16);
+	r.y = 15;
 	r.len = w->player.life;
-	r.hei = 20;
+	r.hei = 10;
 	r.color = 0x00FF00;
- mlx_string_put ( w->mlx, w->win, 200, 200, 0xFF00FF, "bite");
 	rectangle(r, w);
 }
 
@@ -74,4 +73,14 @@ void	hud(t_win_info *w)
 {
 	life_point(w);
 	cursor(w);
+}
+
+void	image_hud(t_win_info *w)
+{
+	int hei;
+	int len;
+	void *h;
+
+	h = mlx_xpm_file_to_image(w->mlx, "assets/h.xpm", &len, &hei);
+	mlx_put_image_to_window(w->mlx, w->win, h,(SIZE_X / 2) + (SIZE_X / 4) + (SIZE_X/16) - 25 , 13);
 }
