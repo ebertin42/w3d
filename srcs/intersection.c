@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/09 13:22:30 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/09 17:38:20 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
 	while (y < SIZE_Y / 2 + h_wall / 2 && y < SIZE_Y - 1)
 	{
 		if (y < SIZE_Y && y >= 0)
-		put_pixel_image(x, y, get_color(yim, h_wall, column, *w, texid), w);
+			put_pixel_image(x, y, get_color(yim, h_wall, column, *w, texid), w);
 		yim++;
 		y++;
 	}
-	while (y < SIZE_Y - 1)
+	while (y < SIZE_Y)
 	{
 		put_pixel_image(x, SIZE_Y - y, 0x808080, w);
 		put_pixel_image(x, y, 0x808080, w);
@@ -110,7 +110,7 @@ void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
 	}
 }
 
-int		raycasting(t_win_info w)
+int		raycasting(t_win_info w, int test)
 {
 	t_intersection	a;
 	t_intersection	b;
@@ -166,6 +166,7 @@ int		raycasting(t_win_info w)
 		x++;
 	}
 	hud(&w);
+	put_sprite_wep(&w, test);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.img, 0, 0);
 	image_hud(&w);
 	return (0);

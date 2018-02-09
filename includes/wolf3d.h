@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/08 18:36:16 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/09 17:03:02 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct		s_win_info
 	void			*win;
 	t_player		player;
 	t_img			img;
-	t_img			tex[4];
+	t_img			tex[8];
 	double			map[32][32];
 	double			dist_player_proj;
 	int				s_player;
@@ -95,7 +95,7 @@ t_line				*read_data(char *file);
 int					count_line_file(char *file);
 int					check_good_nbdata(t_line *data);
 int					translate(t_line *data, t_win_info *w);
-int					raycasting(t_win_info w);
+int					raycasting(t_win_info w, int test);
 void				put_pixel_image(int x, int y, int color, t_win_info *w);
 double				conv_rad(double angle);
 void				cursor(t_win_info *w);
@@ -105,6 +105,9 @@ void				hud(t_win_info *w);
 void				image_hud(t_win_info *w);
 int					get_color(int y, int h_wall, int column, t_win_info w, int texid);
 void				draw(int x, int h_wall, t_win_info *w, int column, int texid);
-int					load_texture(t_win_info *w);
+int					load_texture_mur(t_win_info *w);
+int					load_texture_sprite(t_win_info *w);
+void				put_sprite_wep(t_win_info *w, int texid);
+
 
 #endif

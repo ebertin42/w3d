@@ -6,11 +6,40 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/08 18:04:54 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/09 17:38:15 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+#include <stdio.h>
+
+void put_sprite_wep(t_win_info *w, int texid)
+{
+	unsigned int color;
+	double	x;
+	double	y;
+	int		r;
+	int		g;
+	int		b;
+
+	y = 0;
+	color = 0;
+	while (y < SIZE_Y)
+	{
+		x = 0;
+		while (x < SIZE_X)
+		{
+			b = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) + ((int)(y / SIZE_Y * 128) * w->tex[texid].s))];
+			g = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) + ((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1];
+			r = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) + ((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2];
+			color = b + g * 256 + (r * 256) * 256;
+			if (color != 4288151432)
+				put_pixel_image(x, y, color, w);
+			x++;
+		}
+		y++;
+	}
+}
 
 void	init_data(t_win_info *w)
 {
@@ -83,14 +112,25 @@ int key_hook(int key, void *param)
 	if (key == 1 || key == 13)
 		deplacement(w, key);
 	if (key == SPRINT)
+		w->player.sprint = w->player.sprint ^ 1;
+	if (key == 49)
 	{
-		if (w->player.sprint == 0)
-			w->player.sprint = 1;
-		else
-			w->player.sprint = 0;
+		raycasting(*w, 5);
 	}
-	raycasting(*w);
-	return(0);
+	else
+		raycasting(*w, 4);
+	return (0);
+}
+int test(int key, void *param)
+{
+	t_win_info *w;
+
+	w = (t_win_info*)param;
+	if (key == 49)
+	{
+		raycasting(*w, 4);
+	}
+	return (0);
 }
 
 int	ft_close(int keycode, void *param)
@@ -128,10 +168,12 @@ int		main(int ac, char **av)
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
 	init_data(&w);
-	printf("%d\n", load_texture(&w));
-	raycasting(w);
+	printf("%d\n", load_texture_mur(&w));
+	load_texture_sprite(&w);
+	raycasting(w , 4);
 	mlx_hook(w.win, 17, 0, ft_close, &w);
 	mlx_hook(w.win, 2, 0, key_hook, &w);
+	mlx_hook(w.win, 3, 0, test, &w);
 	mlx_loop(w.mlx);
 	return (0);
 }
