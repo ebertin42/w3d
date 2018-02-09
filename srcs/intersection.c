@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/08 18:36:48 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/09 13:22:30 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_intersection find_intersection_hor(double alpha, t_win_info w)
 	while (((int)(a.x / BLOC) < 32 && (int)(a.x / BLOC) > 0) && (int)(a.y / BLOC) < 32 && (int)(a.y / BLOC) > 0)
 	{
 		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == WALL)
-			return (a);
+		return (a);
 		a.x += xa;
 		a.y += ya;
 	}
@@ -76,7 +76,7 @@ t_intersection find_intersection_ver(double alpha, t_win_info w)
 	while (((int)(a.x / BLOC) < 32 && (int)(a.x / BLOC) > 0) && (int)(a.y / BLOC) < 32 && (int)(a.y / BLOC) > 0)
 	{
 		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == WALL)
-			return (a);
+		return (a);
 		a.x += xa;
 		a.y += ya;
 	}
@@ -98,7 +98,7 @@ void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
 	while (y < SIZE_Y / 2 + h_wall / 2 && y < SIZE_Y - 1)
 	{
 		if (y < SIZE_Y && y >= 0)
-			put_pixel_image(x, y, get_color(yim, h_wall, column, *w, texid), w);
+		put_pixel_image(x, y, get_color(yim, h_wall, column, *w, texid), w);
 		yim++;
 		y++;
 	}
@@ -140,9 +140,28 @@ int		raycasting(t_win_info w)
 		pa = sqrt(powf((w.player.pos_x - a.x), 2) + powf((w.player.pos_y - a.y), 2));
 		pb = sqrt(powf((w.player.pos_x - b.x), 2) + powf((w.player.pos_y - b.y), 2));
 		beta = alpha > w.player.dir_x ? 30 : -30;
-		dist = pa > pb ? pb : pa;
+		if (pa > 0 && pb > 0)
+			dist = pa > pb ? pb : pa;
+		else if (pa > 0)
+			dist = pa;
+		else if (pb > 0)
+			dist = pb;
+		if (dist == (int)pb)
+		{
+			if (cos(alpha * RAD) > 0)
+				texid = 0;
+			else
+				texid = 1;
+		}
+		else
+		{
+			if (sin(alpha * RAD) > 0)
+				texid = 2;
+			else
+				texid = 3;
+		}
+		dist *= cos(beta * RAD);
 		h_wall = BLOC / dist * w.dist_player_proj;
-		texid = 0;
 		draw(x, h_wall, &w, pa > pb ? (int)b.y % (int)BLOC : (int)a.x % (int)BLOC, texid);
 		x++;
 	}
