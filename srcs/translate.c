@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:03:15 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/07 15:09:16 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/09 17:54:02 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ static void	nowall(double map[32][32])
 	int x;
 
 	x = 0;
-	while(x != 31)
+	while (x != 31)
 	{
-		if(map[0][x] != 1)
+		if (map[0][x] != 1)
 			map_error(1);
-		else if(map[31][x] != 1)
+		else if (map[31][x] != 1)
 			map_error(1);
-	x++;
+		x++;
 	}
-	while(x != 31)
+	while (x != 31)
 	{
 		if (map[x][0] != 1)
 			map_error(1);
@@ -34,7 +34,7 @@ static void	nowall(double map[32][32])
 	}
 }
 
-int	translate(t_line *data, t_win_info *w)
+int		translate(t_line *data, t_win_info *w)
 {
 	int x;
 	int y;
@@ -68,9 +68,10 @@ int	translate(t_line *data, t_win_info *w)
 		{
 			if (w->map[y][x] == 3)
 			{
-				if(w->map[y][x + 1] != 0 || w->map[y][x - 1] != 0 || w->map[y + 1][x] != 0 || w->map[y - 1][x] != 0)
+				if (w->map[y][x + 1] != 0 || w->map[y][x - 1] != 0 ||
+					w->map[y + 1][x] != 0 || w->map[y - 1][x] != 0)
 					map_error(0);
-				else 
+				else
 					break ;
 			}
 			x++;

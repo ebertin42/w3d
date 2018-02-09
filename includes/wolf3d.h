@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/09 17:03:02 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/09 18:06:07 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct		s_win_info
 	double			map[32][32];
 	double			dist_player_proj;
 	int				s_player;
+	int				id;
 }					t_win_info;
 
 t_line				*read_data(char *file);
