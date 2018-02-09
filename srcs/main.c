@@ -43,9 +43,6 @@ void put_sprite_wep(t_win_info *w, int texid)
 
 void	init_data(t_win_info *w)
 {
-	int a;
-	int b;
-	
 	w->player.sprint = 0;
 	w->player.life = 100;
 	w->player.dir_x = 0;
@@ -55,7 +52,7 @@ void	init_data(t_win_info *w)
 	w->player.pos_y = w->player.start_y;
 	w->player.fov = 60;
 	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
-	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/skybox.xpm", &a, &b);
+	w->img.img = mlx_new_image(w->mlx, SIZE_X, SIZE_Y);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 }
 
@@ -100,8 +97,6 @@ void	deplacement(t_win_info *w, int keycode)
 		w->player.pos_x = tmp_x;
 		w->player.pos_y = tmp_y;
 	}
-	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/skybox.xpm", &a, &b);
-	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 }
 
 int key_hook(int key, void *param)
