@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/09 18:06:07 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/10 16:34:17 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define WALL	1
 # define SPAWN	3
 # define WALK	0
+# define MONSTER 7
 # define FORWARD	13
 # define BACKWARD	1
 # define LEFT		0
