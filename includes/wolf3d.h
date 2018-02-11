@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/10 16:34:17 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/11 15:37:46 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,22 @@
 # define KEY_ESC	53
 # define SPRINT		257
 
+typedef struct		s_mob
+{
+	double			pa;
+	double			pb;
+	int				dist;
+	int				h;
+	int				token;
+}					t_mob;
+
 typedef struct		s_intersection
 {
 	double			x;
 	double			y;
+	int				token;
+	double			xmob;
+	double			ymob;
 }					t_intersection;
 
 typedef struct		s_rectangle
@@ -105,11 +117,12 @@ void				map_error(int error);
 void				read_error(int error);
 void				hud(t_win_info *w);
 void				image_hud(t_win_info *w);
-int					get_color(int y, int h_wall, int column, t_win_info w, int texid);
-void				draw(int x, int h_wall, t_win_info *w, int column, int texid);
+int					get_color(int y, int h_wall, int column, t_win_info w, \
+		int texid);
+void				draw(int x, int h_wall, t_win_info *w, int column, \
+		int texid);
 int					load_texture_mur(t_win_info *w);
 int					load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
-
 
 #endif
