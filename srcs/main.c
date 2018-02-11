@@ -6,14 +6,14 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 08:21:46 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/11 14:53:43 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 #include <stdio.h>
 
-void put_sprite_wep(t_win_info *w, int texid)
+void	put_sprite_wep(t_win_info *w, int texid)
 {
 	unsigned int color;
 	double	x;
@@ -76,9 +76,9 @@ void	deplacement(t_win_info *w, int keycode)
 		speed = 45;
 	if (keycode == 13)
 	{
-		if(cos(angle) > 0)
+		if (cos(angle) > 0)
 			w->player.pos_x += speed * fabs(cos(angle));
-		else if(cos(angle) < 0)
+		else if (cos(angle) < 0)
 			w->player.pos_x += -1 * (speed * fabs(cos(angle)));
 		if (sin(angle) > 0)
 			w->player.pos_y += -1 * (speed * fabs(sin(angle)));
@@ -87,9 +87,9 @@ void	deplacement(t_win_info *w, int keycode)
 	}
 	else if (keycode == 1)
 	{
-		if(cos(angle) > 0)
+		if (cos(angle) > 0)
 			w->player.pos_x -= speed * fabs(cos(angle));
-		else if(cos(angle) < 0)
+		else if (cos(angle) < 0)
 			w->player.pos_x -= -1 * (speed * fabs(cos(angle)));
 		if (sin(angle) > 0)
 			w->player.pos_y -= -1 * (speed * fabs(sin(angle)));
@@ -103,7 +103,7 @@ void	deplacement(t_win_info *w, int keycode)
 	}
 }
 
-int key_hook(int key, void *param)
+int		key_hook(int key, void *param)
 {
 	t_win_info *w;
 	int					a;
@@ -130,7 +130,7 @@ int key_hook(int key, void *param)
 	raycasting(*w, w->id);
 	return (0);
 }
-int test(int key, void *param)
+int		test(int key, void *param)
 {
 	t_win_info *w;
 	int			a;
@@ -148,7 +148,7 @@ int test(int key, void *param)
 	return (0);
 }
 
-int	ft_close(int keycode, void *param)
+int		ft_close(int keycode, void *param)
 {
 	(void)param;
 	(void)keycode;
@@ -185,7 +185,7 @@ int		main(int ac, char **av)
 	init_data(&w);
 	printf("%d\n", load_texture_mur(&w));
 	load_texture_sprite(&w);
-	raycasting(w , 4);
+	raycasting(w, 4);
 	mlx_hook(w.win, 17, 0, ft_close, &w);
 	mlx_hook(w.win, 2, 0, key_hook, &w);
 	mlx_hook(w.win, 3, 0, test, &w);
