@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 06:23:21 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/11 08:21:46 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ void	init_data(t_win_info *w)
 	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
 	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
+	system("afplay ./sounds/8bit.mp3 &");
 }
 
 void	deplacement(t_win_info *w, int keycode)
 {
-	double angle;
-	double tmp_x;
-	double tmp_y;
+	double	angle;
+	double	tmp_x;
+	double	tmp_y;
 	int		speed;
 
 	angle = w->player.dir_x * RAD;
@@ -140,6 +141,7 @@ int test(int key, void *param)
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 	if (key == 49)
 	{
+		system("afplay ./sounds/explode.wav &");
 		w->id = 4;
 		raycasting(*w, 4);
 	}
