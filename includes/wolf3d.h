@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 15:37:46 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/11 16:24:14 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <signal.h>
 
 # define SIZE_X 720
 # define SIZE_Y 480
@@ -103,6 +104,7 @@ typedef struct		s_win_info
 	double			dist_player_proj;
 	int				s_player;
 	int				id;
+	pid_t			pid;
 }					t_win_info;
 
 t_line				*read_data(char *file);

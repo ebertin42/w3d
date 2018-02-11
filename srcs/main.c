@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 14:53:43 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/11 16:30:21 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	put_sprite_wep(t_win_info *w, int texid)
 	}
 }
 
+void	child()
+{
+	while (42)
+		system("afplay ./sounds/8bit.mp3");
+}
+
+
 void	init_data(t_win_info *w)
 {
 	int a;
@@ -57,7 +64,9 @@ void	init_data(t_win_info *w)
 	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
 	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
-	system("afplay ./sounds/8bit.mp3 &");
+	w->pid = fork();
+	if (w->pid == 0)
+		child();
 }
 
 void	deplacement(t_win_info *w, int keycode)
@@ -103,6 +112,19 @@ void	deplacement(t_win_info *w, int keycode)
 	}
 }
 
+int		ft_close(int keycode, void *param)
+{
+	t_win_info	*w;
+
+	w = (t_win_info*)param;
+	(void)keycode;
+	kill(w->pid, SIGKILL);
+	system("pkill afplay");
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+
 int		key_hook(int key, void *param)
 {
 	t_win_info *w;
@@ -111,7 +133,7 @@ int		key_hook(int key, void *param)
 
 	w = (t_win_info*)param;
 	if (key == KEY_ESC)
-		exit(0);
+		ft_close(key, param);
 	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 	if (key == 0)
@@ -145,14 +167,6 @@ int		test(int key, void *param)
 		w->id = 4;
 		raycasting(*w, 4);
 	}
-	return (0);
-}
-
-int		ft_close(int keycode, void *param)
-{
-	(void)param;
-	(void)keycode;
-	exit(EXIT_SUCCESS);
 	return (0);
 }
 
