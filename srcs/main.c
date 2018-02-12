@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 08:29:58 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 08:59:48 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	deplacement(t_win_info *w, int keycode)
 	angle = w->player.dir_x * RAD;
 	tmp_x = w->player.pos_x;
 	tmp_y = w->player.pos_y;
+
 	if (w->player.sprint == 1)
 		speed = 20;
 	else
@@ -120,7 +121,7 @@ int		ft_close(int keycode, void *param)
 
 int		key_hook(int key, void *param)
 {
-	t_win_info *w;
+	t_win_info			*w;
 	int					a;
 	int					b;
 
