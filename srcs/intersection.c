@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 06:15:55 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 15:29:07 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ int		get_color(int y, int h_wall, int column, t_win_info w, int texid)
 	return (color);
 }
 
-t_intersection find_intersection_hor(double alpha, t_win_info w)
+t_intersection find_intersection_hor(double alpha, t_win_info w, int obstacle)
 {
 	t_intersection	a;
 	double			xa;
 	double			ya;
 
+	a.token = 0;
 	if (sin(alpha * RAD) > 0)
 	{
 		a.y = (int)(w.player.pos_y / BLOC) * BLOC - 1;
@@ -45,20 +46,24 @@ t_intersection find_intersection_hor(double alpha, t_win_info w)
 	xa *= BLOC / tan(alpha * RAD);
 	while (((int)(a.x / BLOC) < 32 && (int)(a.x / BLOC) > 0) && (int)(a.y / BLOC) < 32 && (int)(a.y / BLOC) > 0)
 	{
-		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == WALL)
-		return (a);
+		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == obstacle)
+		{
+			a.token = 1;
+			return (a);
+		}
 		a.x += xa;
 		a.y += ya;
 	}
 	return (a);
 }
 
-t_intersection find_intersection_ver(double alpha, t_win_info w)
+t_intersection find_intersection_ver(double alpha, t_win_info w, int obstacle)
 {
 	t_intersection	a;
 	double			xa;
 	double			ya;
 
+	a.token = 0;
 	if (cos(alpha * RAD) > 0)
 	{
 		a.x = (int)(w.player.pos_x / BLOC) * BLOC + BLOC;
@@ -75,8 +80,11 @@ t_intersection find_intersection_ver(double alpha, t_win_info w)
 	ya *= BLOC * tan(alpha * RAD);
 	while (((int)(a.x / BLOC) < 32 && (int)(a.x / BLOC) > 0) && (int)(a.y / BLOC) < 32 && (int)(a.y / BLOC) > 0)
 	{
-		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == WALL)
-		return (a);
+		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == obstacle)
+		{
+			a.token = 1;
+			return (a);
+		}
 		a.x += xa;
 		a.y += ya;
 	}
@@ -87,6 +95,7 @@ void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
 {
 	int y;
 	int yim;
+	int color;
 
 	y = SIZE_Y / 2 - h_wall / 2;
 	yim = 0;
@@ -98,71 +107,108 @@ void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
 	while (y < SIZE_Y / 2 + h_wall / 2 && y < SIZE_Y - 1)
 	{
 		if (y < SIZE_Y && y >= 0)
-			put_pixel_image(x, y, get_color(yim, h_wall, column, *w, texid), w);
+		{
+			color = get_color(yim, h_wall, column, *w, texid);
+			if (color != 6422430)
+				put_pixel_image(x, y, color, w);
+		}
 		yim++;
 		y++;
 	}
 	while (y < SIZE_Y)
 	{
-		//put_pixel_image(x, SIZE_Y - y, 0x808080, w);
 		put_pixel_image(x, y, 0x808080, w);
 		y++;
 	}
 }
 
+int		wall_detection(t_obstacle *ob, t_win_info w, double alpha)
+{
+	t_raycasting	r;
+
+	r.a.x = 10000;
+	r.a.y = 10000;
+	r.b.x = 10000;
+	r.b.y = 10000;
+	r.a.dist = 10000;
+	r.b.dist = 10000;
+	if (sin(alpha * RAD))
+		r.a = find_intersection_hor(alpha, w, WALL);
+	if (cos(alpha * RAD))
+		r.b = find_intersection_ver(alpha, w, WALL);
+	r.a.dist = sqrt(pow((w.player.pos_x - r.a.x), 2) + pow((w.player.pos_y - r.a.y), 2));
+	r.b.dist = sqrt(pow((w.player.pos_x - r.b.x), 2) + pow((w.player.pos_y - r.b.y), 2));
+	if (r.a.dist > 0 && r.b.dist > 0)
+		ob->dist = r.a.dist > r.b.dist ? r.b.dist : r.a.dist;
+	else if (r.a.dist > 0)
+		ob->dist = r.a.dist;
+	else if (r.b.dist > 0)
+		ob->dist = r.b.dist;
+	if (ob->dist == r.b.dist)
+	{
+		if (cos(alpha * RAD) > 0)
+			ob->texid = 0;
+		else
+			ob->texid = 1;
+	}
+	else
+	{
+		if (sin(alpha * RAD) > 0)
+			ob->texid = 2;
+		else
+			ob->texid = 3;
+	}
+	ob->h = BLOC / ob->dist * w.dist_player_proj;
+	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC : (int)r.a.x % (int)BLOC;
+	return (1);
+}
+
+int		mob_detection(t_obstacle *ob, t_win_info w, double alpha)
+{
+	t_raycasting r;
+
+	r.a.x = 10000;
+	r.a.y = 10000;
+	r.b.x = 10000;
+	r.b.y = 10000;
+	r.a.dist = 10000;
+	r.b.dist = 10000;
+	if (sin(alpha * RAD))
+		r.a = find_intersection_hor(alpha, w, MONSTER);
+	if (cos(alpha * RAD))
+		r.b = find_intersection_ver(alpha, w, MONSTER);
+	r.a.dist = sqrt(pow((w.player.pos_x - r.a.x), 2) + pow((w.player.pos_y - r.a.y), 2));
+	r.b.dist = sqrt(pow((w.player.pos_x - r.b.x), 2) + pow((w.player.pos_y - r.b.y), 2));
+	if (r.a.dist > 0 && r.b.dist > 0)
+		ob->dist = r.a.dist > r.b.dist ? r.b.dist : r.a.dist;
+	else if (r.a.dist > 0)
+		ob->dist = r.a.dist;
+	else if (r.b.dist > 0)
+		ob->dist = r.b.dist;
+	ob->texid = 7;
+	ob->h = BLOC / ob->dist * w.dist_player_proj;
+	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC : (int)r.a.x % (int)BLOC;
+	ob->token = r.a.dist > r.b.dist ? r.b.token : r.a.token;
+	return (0);
+}
+
 int		raycasting(t_win_info w, int test)
 {
-	t_intersection	a;
-	t_intersection	b;
+	t_obstacle		ob;
+	t_obstacle		ob_mob;
 	double			alpha;
 	int				x;
-	double			pa;
-	double			pb;
-	int				dist;
-	int				beta;
-	int				h_wall;
-	int				texid;
 
 	x = 0;
 	while (x <= SIZE_X)
 	{
-		alpha = (w.player.dir_x + (w.player.fov / 2)) - ((w.player.fov / SIZE_X) * x);
-		a.x = 10000;
-		a.y = 10000;
-		b.x = 10000;
-		b.y = 10000;
-		pa = 10000;
-		pb = 10000;
-		if (sin(alpha * RAD))
-			a = find_intersection_hor(alpha, w);
-		if (cos(alpha * RAD))
-			b = find_intersection_ver(alpha, w);
-		pa = sqrt(powf((w.player.pos_x - a.x), 2) + powf((w.player.pos_y - a.y), 2));
-		pb = sqrt(powf((w.player.pos_x - b.x), 2) + powf((w.player.pos_y - b.y), 2));
-		beta = alpha > w.player.dir_x ? 30 : -30;
-		if (pa > 0 && pb > 0)
-			dist = pa > pb ? pb : pa;
-		else if (pa > 0)
-			dist = pa;
-		else if (pb > 0)
-			dist = pb;
-		if (dist == (int)pb)
-		{
-			if (cos(alpha * RAD) > 0)
-				texid = 0;
-			else
-				texid = 1;
-		}
-		else
-		{
-			if (sin(alpha * RAD) > 0)
-				texid = 2;
-			else
-				texid = 3;
-		}
-		dist *= cos(beta * RAD);
-		h_wall = BLOC / dist * w.dist_player_proj;
-		draw(x, h_wall, &w, pa > pb ? (int)b.y % (int)BLOC : (int)a.x % (int)BLOC, texid);
+		alpha = (w.player.dir_x + (w.player.fov / 2)) -
+			((w.player.fov / SIZE_X) * x);
+		wall_detection(&ob, w, alpha);
+		mob_detection(&ob_mob, w, alpha);
+		draw(x, ob.h, &w, ob.col, ob.texid);
+		if(ob_mob.token == 1 && ob.dist > ob_mob.dist)
+			draw(x, ob_mob.h, &w, ob_mob.col, 7);
 		x++;
 	}
 	hud(&w);

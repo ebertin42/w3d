@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 08:59:48 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 12:21:01 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 
 void	put_sprite_wep(t_win_info *w, int texid)
 {
-	unsigned int color;
-	double	x;
-	double	y;
-	int		r;
-	int		g;
-	int		b;
+	unsigned int	color;
+	double			x;
+	double			y;
 
 	y = 0;
 	color = 0;
@@ -29,10 +26,12 @@ void	put_sprite_wep(t_win_info *w, int texid)
 		x = 0;
 		while (x < SIZE_X)
 		{
-			b = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) + ((int)(y / SIZE_Y * 128) * w->tex[texid].s))];
-			g = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) + ((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1];
-			r = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) + ((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2];
-			color = b + g * 256 + (r * 256) * 256;
+			color = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
+			((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
+			w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
+			((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
+			(w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
+			((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
 			if (color != 4288151432)
 				put_pixel_image(x, y, color, w);
 			x++;
@@ -72,7 +71,6 @@ void	deplacement(t_win_info *w, int keycode)
 	angle = w->player.dir_x * RAD;
 	tmp_x = w->player.pos_x;
 	tmp_y = w->player.pos_y;
-
 	if (w->player.sprint == 1)
 		speed = 20;
 	else
@@ -118,7 +116,6 @@ int		ft_close(int keycode, void *param)
 	return (0);
 }
 
-
 int		key_hook(int key, void *param)
 {
 	t_win_info			*w;
@@ -146,9 +143,10 @@ int		key_hook(int key, void *param)
 	raycasting(*w, w->id);
 	return (0);
 }
-int		test(int key, void *param)
+
+int		key_release(int key, void *param)
 {
-	t_win_info *w;
+	t_win_info	*w;
 	int			a;
 	int			b;
 
@@ -168,35 +166,21 @@ int		main(int ac, char **av)
 {
 	t_line		*data;
 	t_win_info	w;
-	int			x;
-	int			y;
 
 	if (ac != 2)
 		return (0);
 	data = read_data(av[1]);
-	printf("%d\n", check_good_nbdata(data));
-	printf("%d\n", translate(data, &w));
-	y = 0;
-	while (y < 32)
-	{
-		x = 0;
-		while (x < 32)
-		{
-			printf("%d ", (int)w.map[y][x]);
-			x++;
-		}
-		y++;
-		printf("\n");
-	}
+	check_good_nbdata(data);
+	translate(data, &w);
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
 	init_data(&w);
-	printf("%d\n", load_texture_mur(&w));
+	load_texture_mur(&w);
 	load_texture_sprite(&w);
 	raycasting(w, 4);
 	mlx_hook(w.win, 17, 0, ft_close, &w);
 	mlx_hook(w.win, 2, 0, key_hook, &w);
-	mlx_hook(w.win, 3, 0, test, &w);
+	mlx_hook(w.win, 3, 0, key_release, &w);
 	mlx_loop(w.mlx);
 	return (0);
 }

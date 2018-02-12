@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 08:28:53 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 13:58:39 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,30 @@
 # define KEY_ESC	53
 # define SPRINT		257
 
-typedef struct		s_mob
-{
-	double			pa;
-	double			pb;
-	int				dist;
-	int				h;
-	int				token;
-}					t_mob;
-
 typedef struct		s_intersection
 {
 	double			x;
 	double			y;
+	int				dist;
 	int				token;
-	double			xmob;
-	double			ymob;
 }					t_intersection;
+
+typedef struct		s_obstacle
+{
+	int				h;
+	int				dist;
+	int				texid;
+	int				col;
+	int				token;
+}					t_obstacle;
+
+typedef struct		s_raycasting
+{
+	t_intersection	a;
+	t_intersection	b;
+	t_intersection	a_mob;
+	t_intersection	b_mob;
+}					t_raycasting;
 
 typedef struct		s_rectangle
 {

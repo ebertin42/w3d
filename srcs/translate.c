@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:03:15 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/09 17:54:02 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/12 12:08:14 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ static void	nowall(double map[32][32])
 			map_error(1);
 		x++;
 	}
+	x = 0;
 	while (x != 31)
 	{
 		if (map[x][0] != 1)
 			map_error(1);
 		else if (map[x][31] != 1)
 			map_error(1);
+		x++;
 	}
 }
 
