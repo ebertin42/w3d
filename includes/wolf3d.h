@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 08:28:53 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 12:51:29 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct		s_win_info
 	t_player		player;
 	t_img			img;
 	t_img			tex[8];
+	t_img			sky;
 	double			map[32][32];
 	double			dist_player_proj;
 	int				s_player;
@@ -127,5 +128,6 @@ int					load_texture_mur(t_win_info *w);
 int					load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
 void				child();
+void				file_image(t_win_info *w);
 
 #endif

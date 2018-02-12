@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 06:15:55 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 13:26:22 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
 	}
 	while (y < SIZE_Y)
 	{
-		//put_pixel_image(x, SIZE_Y - y, 0x808080, w);
 		put_pixel_image(x, y, 0x808080, w);
 		y++;
 	}
@@ -123,6 +122,7 @@ int		raycasting(t_win_info w, int test)
 	int				h_wall;
 	int				texid;
 
+	file_image(&w);
 	x = 0;
 	while (x <= SIZE_X)
 	{

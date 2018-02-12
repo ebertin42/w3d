@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 08:59:48 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 13:22:34 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	init_data(t_win_info *w)
 	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
 	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
 	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
+	w->sky.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
+	w->sky.str = mlx_get_data_addr(w->sky.img, &w->sky.b, &w->sky.s, &w->sky.e);
 	w->pid = fork();
 	if (w->pid == 0)
 		child();
@@ -122,14 +124,10 @@ int		ft_close(int keycode, void *param)
 int		key_hook(int key, void *param)
 {
 	t_win_info			*w;
-	int					a;
-	int					b;
 
 	w = (t_win_info*)param;
 	if (key == KEY_ESC)
 		ft_close(key, param);
-	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
-	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 	if (key == 0)
 		w->player.dir_x += 5;
 	if (key == 2)
@@ -149,12 +147,8 @@ int		key_hook(int key, void *param)
 int		test(int key, void *param)
 {
 	t_win_info *w;
-	int			a;
-	int			b;
 
 	w = (t_win_info*)param;
-	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
-	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 	if (key == 49)
 	{
 		system("afplay ./sounds/explode.wav &");
