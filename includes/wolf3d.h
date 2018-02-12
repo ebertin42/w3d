@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 16:24:14 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 08:28:53 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ void				draw(int x, int h_wall, t_win_info *w, int column, \
 int					load_texture_mur(t_win_info *w);
 int					load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
+void				child();
 
 #endif

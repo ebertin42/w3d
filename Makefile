@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/02/08 18:35:59 by fde-souz         ###   ########.fr        #
+#    Updated: 2018/02/12 08:29:30 by ebertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRC_NAME =	hud.c \
 			radian.c   \
 			translate.c \
 			intersection.c \
-			load_texture.c 
+			load_texture.c \
+			child.c
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/11 16:30:21 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/12 08:29:58 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ void	put_sprite_wep(t_win_info *w, int texid)
 		y++;
 	}
 }
-
-void	child()
-{
-	while (42)
-		system("afplay ./sounds/8bit.mp3");
-}
-
 
 void	init_data(t_win_info *w)
 {
