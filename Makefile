@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/02/12 12:51:52 by ebertin          ###   ########.fr        #
+#    Updated: 2018/02/12 17:47:10 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,9 @@ SRC_NAME =	hud.c \
 			intersection.c \
 			load_texture.c \
 			child.c \
-			file_image.c
+			file_image.c \
+			hook.c \
+			draw.c
 
 all: $(NAME)
 

@@ -6,22 +6,13 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 16:09:05 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/12 17:56:59 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int		get_color(int y, int h_wall, int column, t_win_info w, int texid)
-{
-	int color;
 
-	y = ((double)y / (double)h_wall) * BLOC;
-	color = w.tex[texid].str[(column * 4) + ((int)BLOC * 4 * y)];
-	color += w.tex[texid].str[(column * 4) + ((int)BLOC * 4 * y) + 1] * 256;
-	color += (w.tex[texid].str[(column * 4) + ((int)BLOC * 4 * y) + 2] * 256) * 256;
-	return (color);
-}
 
 t_intersection find_intersection_hor(double alpha, t_win_info w, int obstacle)
 {
@@ -91,36 +82,6 @@ t_intersection find_intersection_ver(double alpha, t_win_info w, int obstacle)
 	return (a);
 }
 
-void	draw(int x, int h_wall, t_win_info *w, int column, int texid)
-{
-	int y;
-	int yim;
-	int color;
-
-	y = SIZE_Y / 2 - h_wall / 2;
-	yim = 0;
-	if (y < 0)
-	{
-		yim -= y;
-		y = 0;
-	}
-	while (y < SIZE_Y / 2 + h_wall / 2 && y < SIZE_Y - 1)
-	{
-		if (y < SIZE_Y && y >= 0)
-		{
-			color = get_color(yim, h_wall, column, *w, texid);
-			if (color != 6422430)
-				put_pixel_image(x, y, color, w);
-		}
-		yim++;
-		y++;
-	}
-	while (y < SIZE_Y)
-	{
-		put_pixel_image(x, y, 0x808080, w);
-		y++;
-	}
-}
 
 int		wall_detection(t_obstacle *ob, t_win_info w, double alpha)
 {
@@ -185,7 +146,7 @@ int		mob_detection(t_obstacle *ob, t_win_info w, double alpha)
 		ob->dist = r.a.dist;
 	else if (r.b.dist > 0)
 		ob->dist = r.b.dist;
-	ob->texid = 7;
+	ob->texid = MONSTER;
 	ob->h = BLOC / ob->dist * w.dist_player_proj;
 	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC : (int)r.a.x % (int)BLOC;
 	ob->token = r.a.dist > r.b.dist ? r.b.token : r.a.token;
@@ -207,9 +168,9 @@ int		raycasting(t_win_info w, int test)
 			((w.player.fov / SIZE_X) * x);
 		wall_detection(&ob, w, alpha);
 		mob_detection(&ob_mob, w, alpha);
-		draw(x, ob.h, &w, ob.col, ob.texid);
+		draw(x, &w, ob);
 		if(ob_mob.token == 1 && ob.dist > ob_mob.dist)
-			draw(x, ob_mob.h, &w, ob_mob.col, 7);
+			draw(x, &w, ob_mob);
 		x++;
 	}
 	hud(&w);

@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 16:26:41 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/12 17:53:40 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@
 # define RIGHT		2
 # define KEY_ESC	53
 # define SPRINT		257
+
+typedef struct		s_color
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_color;
 
 typedef struct		s_intersection
 {
@@ -100,6 +107,12 @@ typedef struct		s_img
 	int				e;
 }					t_img;
 
+typedef struct		s_coord
+{
+	int				x;
+	int				y;
+}					t_coord;
+
 typedef struct		s_win_info
 {
 	void			*mlx;
@@ -127,15 +140,20 @@ void				map_error(int error);
 void				read_error(int error);
 void				hud(t_win_info *w);
 void				image_hud(t_win_info *w);
-int					get_color(int y, int h_wall, int column, t_win_info w, \
-		int texid);
-void				draw(int x, int h_wall, t_win_info *w, int column, \
-		int texid);
+int					get_color(int y, t_win_info w, t_obstacle ob);
+void				draw(int x, t_win_info *w, t_obstacle ob);
 int					load_texture_mur(t_win_info *w);
 int					load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
 void				child();
 void				file_image(t_win_info *w);
 void				ennemies_place(double tab[32][32]);
+int					mob_detection(t_obstacle *ob, t_win_info w, double alpha);
+t_intersection		find_intersection_ver(double alpha, t_win_info w, \
+		int obstacle);
+t_intersection		find_intersection_hor(double alpha, t_win_info w, \
+		int obstacle);
+int					key_hook(int key, void *param);
+int					ft_close(int keycode, void *param);
 
 #endif
