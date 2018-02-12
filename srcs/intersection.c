@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 15:29:07 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:09:05 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ int		raycasting(t_win_info w, int test)
 	double			alpha;
 	int				x;
 
+	file_image(&w);
 	x = 0;
 	while (x <= SIZE_X)
 	{
