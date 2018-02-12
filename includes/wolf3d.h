@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 16:08:43 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:26:41 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,6 @@ int					load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
 void				child();
 void				file_image(t_win_info *w);
+void				ennemies_place(double tab[32][32]);
 
 #endif

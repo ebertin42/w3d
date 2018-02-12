@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 16:08:56 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:27:30 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int		main(int ac, char **av)
 	data = read_data(av[1]);
 	check_good_nbdata(data);
 	translate(data, &w);
+	ennemies_place(w.map);
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
 	init_data(&w);

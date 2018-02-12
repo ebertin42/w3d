@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:31:28 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/12 12:22:45 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:24:33 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	map_error(int error)
 		ft_putstr("\n - the spawn have to be unique in the map.");
 		ft_putstr("\n - the number associated to the span is '3'.\n\n");
 	}
-	else if (1)
+	else if (error == 1)
 		ft_putstr("\nMAP ERROR:\n - the map is not a 32x32 map\n\n");
-	else if (2)
+	else if (error == 2)
 		ft_putstr("\nMAP ERROR:\n - the border are not full of wall\n\n");
+	else if (error == 4)
+		ft_putstr("\nMAP ERROR:\n - ennemies are not on the good place\n\n");
 	exit(0);
 }
 
