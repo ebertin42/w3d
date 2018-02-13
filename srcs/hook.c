@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 18:12:49 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 18:42:11 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,16 @@ void	deplacement(t_win_info *w, int keycode)
 	else
 		speed = 45;
 	if (keycode == w->player.forward)
-	{
-		if (cos(angle) > 0)
-			w->player.pos_x += speed * fabs(cos(angle));
-		else if (cos(angle) < 0)
-			w->player.pos_x += -1 * (speed * fabs(cos(angle)));
-		if (sin(angle) > 0)
-			w->player.pos_y += -1 * (speed * fabs(sin(angle)));
-		else if (sin(angle) < 0)
-			w->player.pos_y += speed * fabs(sin(angle));
-	}
+		forward(w, angle, speed);
 	else if (keycode == w->player.backward)
-	{
-		if (cos(angle) > 0)
-			w->player.pos_x -= speed * fabs(cos(angle));
-		else if (cos(angle) < 0)
-			w->player.pos_x -= -1 * (speed * fabs(cos(angle)));
-		if (sin(angle) > 0)
-			w->player.pos_y -= -1 * (speed * fabs(sin(angle)));
-		else if (sin(angle) < 0)
-			w->player.pos_y -= speed * fabs(sin(angle));
-	}
-	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) / (int)BLOC)] == WALL)
+		backward(w, angle, speed);
+	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) /
+	(int)BLOC)] == WALL)
 	{
 		w->player.pos_x = tmp_x;
 		w->player.pos_y = tmp_y;
 	}
 }
-
 
 int		key_hook(int key, void *param)
 {
@@ -76,13 +58,13 @@ int		key_hook(int key, void *param)
 	int					token;
 	static int			mob_v = 0;
 	w = (t_win_info*)param;
-	if(w->m.statut == 1 && key == 51)
+	if (w->m.statut == 1 && key == 51)
 		w->m.statut = 0;
-	if(w->m.statut == 0 || w->m.statut == 42)
+	if (w->m.statut == 0 || w->m.statut == 42)
 		menu(key, w);
 	if (key == KEY_ESC)
 		ft_close(key, param);
-	if(w->m.statut == 1)
+	if (w->m.statut == 1)
 	{
 		if (key == w->player.left)
 			w->player.dir_x += 5;

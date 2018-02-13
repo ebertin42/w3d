@@ -6,15 +6,28 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 16:08:29 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 18:27:08 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
+static void		calc_co(double xa, double ya, t_intersection *a, t_win_info w)
+{
+	while (((int)(a->x / BLOC) < 32 && (int)(a->x / BLOC) > 0) &&
+		(int)(a->y / BLOC) < 32 && (int)(a->y / BLOC) > 0)
+	{
+		if (w.map[(int)(a->y / BLOC)][(int)(a->x / BLOC)] == a->obstacle)
+		{
+			a->token = 1;
+			return ;
+		}
+		a->x += xa;
+		a->y += ya;
+	}
+}
 
-
-t_intersection find_intersection_hor(double alpha, t_win_info w, int obstacle)
+t_intersection	find_intersection_hor(double alpha, t_win_info w, int obstacle)
 {
 	t_intersection	a;
 	double			xa;
@@ -35,20 +48,12 @@ t_intersection find_intersection_hor(double alpha, t_win_info w, int obstacle)
 	}
 	a.x = w.player.pos_x + (w.player.pos_y - a.y) / tan(alpha * RAD);
 	xa *= BLOC / tan(alpha * RAD);
-	while (((int)(a.x / BLOC) < 32 && (int)(a.x / BLOC) > 0) && (int)(a.y / BLOC) < 32 && (int)(a.y / BLOC) > 0)
-	{
-		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == obstacle)
-		{
-			a.token = 1;
-			return (a);
-		}
-		a.x += xa;
-		a.y += ya;
-	}
+	a.obstacle = obstacle;
+	calc_co(xa, ya, &a, w);
 	return (a);
 }
 
-t_intersection find_intersection_ver(double alpha, t_win_info w, int obstacle)
+t_intersection	find_intersection_ver(double alpha, t_win_info w, int obstacle)
 {
 	t_intersection	a;
 	double			xa;
@@ -69,91 +74,12 @@ t_intersection find_intersection_ver(double alpha, t_win_info w, int obstacle)
 	}
 	a.y = w.player.pos_y + (w.player.pos_x - a.x) * tan(alpha * RAD);
 	ya *= BLOC * tan(alpha * RAD);
-	while (((int)(a.x / BLOC) < 32 && (int)(a.x / BLOC) > 0) && (int)(a.y / BLOC) < 32 && (int)(a.y / BLOC) > 0)
-	{
-		if (w.map[(int)(a.y / BLOC)][(int)(a.x / BLOC)] == obstacle)
-		{
-			a.token = 1;
-			return (a);
-		}
-		a.x += xa;
-		a.y += ya;
-	}
+	a.obstacle = obstacle;
+	calc_co(xa, ya, &a, w);
 	return (a);
 }
 
-
-int		wall_detection(t_obstacle *ob, t_win_info w, double alpha)
-{
-	t_raycasting	r;
-
-	r.a.x = 10000;
-	r.a.y = 10000;
-	r.b.x = 10000;
-	r.b.y = 10000;
-	r.a.dist = 10000;
-	r.b.dist = 10000;
-	if (sin(alpha * RAD))
-		r.a = find_intersection_hor(alpha, w, WALL);
-	if (cos(alpha * RAD))
-		r.b = find_intersection_ver(alpha, w, WALL);
-	r.a.dist = sqrt(pow((w.player.pos_x - r.a.x), 2) + pow((w.player.pos_y - r.a.y), 2));
-	r.b.dist = sqrt(pow((w.player.pos_x - r.b.x), 2) + pow((w.player.pos_y - r.b.y), 2));
-	if (r.a.dist > 0 && r.b.dist > 0)
-		ob->dist = r.a.dist > r.b.dist ? r.b.dist : r.a.dist;
-	else if (r.a.dist > 0)
-		ob->dist = r.a.dist;
-	else if (r.b.dist > 0)
-		ob->dist = r.b.dist;
-	if (ob->dist == r.b.dist)
-	{
-		if (cos(alpha * RAD) > 0)
-			ob->texid = 0;
-		else
-			ob->texid = 1;
-	}
-	else
-	{
-		if (sin(alpha * RAD) > 0)
-			ob->texid = 2;
-		else
-			ob->texid = 3;
-	}
-	ob->h = BLOC / ob->dist * w.dist_player_proj;
-	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC : (int)r.a.x % (int)BLOC;
-	return (1);
-}
-
-int		mob_detection(t_obstacle *ob, t_win_info w, double alpha, int state)
-{
-	t_raycasting r;
-
-	r.a.x = 10000;
-	r.a.y = 10000;
-	r.b.x = 10000;
-	r.b.y = 10000;
-	r.a.dist = 10000;
-	r.b.dist = 10000;
-	if (sin(alpha * RAD))
-		r.a = find_intersection_hor(alpha, w, state);
-	if (cos(alpha * RAD))
-		r.b = find_intersection_ver(alpha, w, state);
-	r.a.dist = sqrt(pow((w.player.pos_x - r.a.x), 2) + pow((w.player.pos_y - r.a.y), 2));
-	r.b.dist = sqrt(pow((w.player.pos_x - r.b.x), 2) + pow((w.player.pos_y - r.b.y), 2));
-	if (r.a.dist > 0 && r.b.dist > 0)
-		ob->dist = r.a.dist > r.b.dist ? r.b.dist : r.a.dist;
-	else if (r.a.dist > 0)
-		ob->dist = r.a.dist;
-	else if (r.b.dist > 0)
-		ob->dist = r.b.dist;
-	ob->texid = state;
-	ob->h = BLOC / ob->dist * w.dist_player_proj;
-	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC : (int)r.a.x % (int)BLOC;
-	ob->token = r.a.dist > r.b.dist ? r.b.token : r.a.token;
-	return (0);
-}
-
-int		raycasting(t_win_info w, int test)
+int				raycasting(t_win_info w, int test)
 {
 	t_obstacle		ob;
 	t_obstacle		ob_mob;
@@ -181,6 +107,5 @@ int		raycasting(t_win_info w, int test)
 	put_sprite_wep(&w, test);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.img, 0, 0);
 	image_hud(&w);
-	ammo(&w);
 	return (0);
 }

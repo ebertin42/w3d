@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 13:45:56 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 16:09:54 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 17:16:21 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	load_texture_mur(t_win_info *w)
 	int a;
 	int b;
 
-	w->tex[0].img = mlx_xpm_file_to_image(w->mlx, "./assets/brick.XPM", &a, &b);
-	w->tex[1].img = mlx_xpm_file_to_image(w->mlx, "./assets/bois.XPM", &a, &b);
-	w->tex[2].img = mlx_xpm_file_to_image(w->mlx, "./assets/brikb.XPM", &a, &b);
-	w->tex[3].img = mlx_xpm_file_to_image(w->mlx, "./assets/metal.XPM", &a, &b);
+	w->tex[0].img = mlx_xpm_file_to_image(w->mlx, "./assets/5.XPM", &a, &b);
+	w->tex[1].img = mlx_xpm_file_to_image(w->mlx, "./assets/3.XPM", &a, &b);
+	w->tex[2].img = mlx_xpm_file_to_image(w->mlx, "./assets/4.XPM", &a, &b);
+	w->tex[3].img = mlx_xpm_file_to_image(w->mlx, "./assets/2.XPM", &a, &b);
 	if (!(w->tex[0].img || w->tex[1].img || w->tex[2].img || w->tex[3].img))
 		return (0);
 	w->tex[0].str = mlx_get_data_addr(w->tex[0].img,

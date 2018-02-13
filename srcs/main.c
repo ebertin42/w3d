@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 17:48:01 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 18:38:36 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	init_data(t_win_info *w, int token)
 
 	if (token == 1)
 	{
-	w->player.left = LEFT;
-	w->player.right = RIGHT;
-	w->player.backward = BACKWARD;
-	w->player.forward = FORWARD;
+		w->player.left = LEFT;
+		w->player.right = RIGHT;
+		w->player.backward = BACKWARD;
+		w->player.forward = FORWARD;
 	}
 	w->player.sprint = 0;
 	w->player.life = 100;
@@ -123,8 +123,6 @@ int		main(int ac, char **av)
 	mlx_put_image_to_window(w.mlx, w.win, w.m.bombe, 160, 170);
 	load_texture_mur(&w);
 	load_texture_sprite(&w);
-	//raycasting(w, 4);
-	//	mlx_hook(w.win, 4, 0, menu, &w);
 	mlx_hook(w.win, 17, 0, ft_close, &w);
 	mlx_hook(w.win, 2, 0, key_hook, &w);
 	mlx_hook(w.win, 3, 0, key_release, &w);

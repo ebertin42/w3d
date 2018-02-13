@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:11:17 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 15:35:48 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/13 17:53:36 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void	image_hud(t_win_info *w)
 		(SIZE_X / 2) + (SIZE_X / 4) + (SIZE_X / 16) - 25, 13);
 	k = mlx_xpm_file_to_image(w->mlx, "assets/ammo.xpm", &len, &hei);
 	mlx_put_image_to_window(w->mlx, w->win, k, 40, 7);
+	ammo(w);
 }

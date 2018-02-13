@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:43:02 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 16:16:08 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:23:56 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int		get_color(int y, t_win_info w, t_obstacle ob)
 
 void	draw(int x, t_win_info *w, t_obstacle ob)
 {
-	int y;
-	int yim;
-	unsigned int color;
+	int				y;
+	int				yim;
+	unsigned int	color;
 
 	y = SIZE_Y / 2 - ob.h / 2;
 	yim = 0;

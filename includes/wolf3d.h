@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 17:51:02 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 18:35:23 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct		s_intersection
 	double			y;
 	int				dist;
 	int				token;
+	int				obstacle;
 }					t_intersection;
 
 typedef struct		s_obstacle
@@ -178,6 +179,7 @@ void				ammo(t_win_info *w);
 void				ennemies_place(double tab[32][32]);
 int					mob_detection(t_obstacle *ob, t_win_info w, double alpha,
 	int state);
+int					wall_detection(t_obstacle *ob, t_win_info w, double alpha);
 t_intersection		find_intersection_ver(double alpha, t_win_info w, \
 		int obstacle);
 t_intersection		find_intersection_hor(double alpha, t_win_info w, \
@@ -186,6 +188,8 @@ int					key_hook(int key, void *param);
 int					ft_close(int keycode, void *param);
 int					menu(int keycode, t_win_info *w);
 void				init_data(t_win_info *w, int token);
+void				backward(t_win_info *w, double angle, int speed);
+void				forward(t_win_info *w, double angle, int speed);
 void				game_over(t_win_info *w, int key);
 void				menu_bombe(t_win_info w, int x, int y, int token);
 
