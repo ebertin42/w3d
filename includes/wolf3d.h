@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 16:09:20 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 17:51:02 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ typedef struct		s_menu
 	int				set;
 	int				change;
 	int				token_set;
+	int				gameover_menu;
+	int				go;
 	void			*menu;
 	void			*settings;
 	void			*credits;
 	void			*bombe;
+	void			*gameover;
 }					t_menu;
 
 typedef struct		s_color
@@ -183,5 +186,7 @@ int					key_hook(int key, void *param);
 int					ft_close(int keycode, void *param);
 int					menu(int keycode, t_win_info *w);
 void				init_data(t_win_info *w, int token);
+void				game_over(t_win_info *w, int key);
+void				menu_bombe(t_win_info w, int x, int y, int token);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 16:06:34 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 18:12:49 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		key_hook(int key, void *param)
 	w = (t_win_info*)param;
 	if(w->m.statut == 1 && key == 51)
 		w->m.statut = 0;
-	if(w->m.statut == 0)
+	if(w->m.statut == 0 || w->m.statut == 42)
 		menu(key, w);
 	if (key == KEY_ESC)
 		ft_close(key, param);
@@ -137,9 +137,12 @@ int		key_hook(int key, void *param)
 				w->player.pos_x = w->player.start_x;
 				w->player.pos_y = w->player.start_y;
 				w->player.life = 100;
+				menu_bombe(*w, 160, 170, 0);
+				w->m.statut = 42;
 			}
 		}
-		raycasting(*w, w->id);
+		if (w->m.statut == 1)
+			raycasting(*w, w->id);
 	}
 	return (0);
 }

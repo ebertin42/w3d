@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 16:05:41 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 17:48:01 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,13 @@ void	init_menu(t_win_info *w)
 	w->m.statut = 0;
 	w->m.token_set = 0;
 	w->m.change = 0;
+	w->m.gameover_menu = 0;
+	w->m.go = 0;
 	w->m.menu = mlx_xpm_file_to_image(w->mlx, "assets/menu/menu.XPM", &a, &b);
 	w->m.credits = mlx_xpm_file_to_image(w->mlx, "assets/menu/credits.XPM", &a, &b);
 	w->m.settings = mlx_xpm_file_to_image(w->mlx, "assets/menu/settings.XPM", &a, &b);
 	w->m.bombe = mlx_xpm_file_to_image(w->mlx, "assets/menu/bombe.XPM", &a, &b);
+	w->m.gameover = mlx_xpm_file_to_image(w->mlx, "assets/menu/gameover.XPM", &a, &b);
 }
 
 int		main(int ac, char **av)
