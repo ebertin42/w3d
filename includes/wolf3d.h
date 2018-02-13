@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 15:55:11 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:03:39 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define RIGHT		2
 # define KEY_ESC	53
 # define SPRINT		257
+# define DEL	51
+# define SPACE	49
 
 typedef struct		s_menu
 {
