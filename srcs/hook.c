@@ -6,7 +6,7 @@
 /*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 15:32:57 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/13 15:51:00 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,62 +84,62 @@ int		key_hook(int key, void *param)
 		ft_close(key, param);
 	if(w->m.statut == 1)
 	{
-	if (key == w->player.left)
-		w->player.dir_x += 5;
-	if (key == w->player.right)
-		w->player.dir_x -= 5;
-	if (key == w->player.forward || key == w->player.backward)
-		deplacement(w, key);
-	if (key == SPRINT)
-		w->player.sprint = w->player.sprint ^ 1;
-	if (key == 15 && w->player.ammo != 8)
-	{
-		w->player.ammo = 8;
-		system("afplay ./sounds/reload.mp3 -v 20 &");
-	}
-	if (key == 49)
-	{
-		w->id++;
-		w->id = w->id > 6 ? 4 : w->id;
-		if (w->player.ammo == 0)
+		if (key == w->player.left)
+			w->player.dir_x += 5;
+		if (key == w->player.right)
+			w->player.dir_x -= 5;
+		if (key == w->player.forward || key == w->player.backward)
+			deplacement(w, key);
+		if (key == SPRINT)
+			w->player.sprint = w->player.sprint ^ 1;
+		if (key == 15 && w->player.ammo != 8)
 		{
-			system("afplay ./sounds/click.wav &");
-			w->id = 4;
+			w->player.ammo = 8;
+			system("afplay ./sounds/reload.mp3 -v 20 &");
 		}
-		else
+		if (key == 49)
 		{
-			w->player.ammo--;
-			system("afplay ./sounds/explode.wav &");
+			w->id++;
+			w->id = w->id > 6 ? 4 : w->id;
+			if (w->player.ammo == 0)
+			{
+				system("afplay ./sounds/click.wav &");
+				w->id = 4;
+			}
+			else
+			{
+				w->player.ammo--;
+				system("afplay ./sounds/explode.wav &");
+			}
+			a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
+			b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
+			a.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));
+			b.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));
+			token = a.dist > b.dist ? b.token : a.token;
+			if (token == 1)
+			{
+				a.x = a.dist > b.dist ? b.x : a.x;
+				a.x /= BLOC;
+				a.y = a.dist > b.dist ? b.y : a.y;
+				a.y /= BLOC;
+				w->map[(int)a.y][(int)a.x] = 0;
+			}
 		}
-		a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
-		b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
-		a.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));
-		b.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));
-		token = a.dist > b.dist ? b.token : a.token;
-		if (token == 1)
+		if (w->map[(int)w->player.pos_y / (int)BLOC][(int)w->player.pos_x / (int)BLOC] == MONSTER)
 		{
-			a.x = a.dist > b.dist ? b.x : a.x;
-			a.x /= BLOC;
-			a.y = a.dist > b.dist ? b.y : a.y;
-			a.y /= BLOC;
-			w->map[(int)a.y][(int)a.x] = 0;
+			if (mob_v == 0)
+				w->player.life -= 15;
+			mob_v++;
+			if (mob_v >= 3)
+				mob_v = 0;
+			if (w->player.life <= 0)
+			{
+				w->player.pos_x = w->player.start_x;
+				w->player.pos_y = w->player.start_y;
+				w->player.life = 100;
+			}
 		}
-	}
-	if (w->map[(int)w->player.pos_y / (int)BLOC][(int)w->player.pos_x / (int)BLOC] == MONSTER)
-	{
-		if (mob_v == 0)
-			w->player.life -= 15;
-		mob_v++;
-		if (mob_v >= 3)
-			mob_v = 0;
-		if (w->player.life <= 0)
-		{
-			w->player.pos_x = w->player.start_x;
-			w->player.pos_y = w->player.start_y;
-			w->player.life = 100;
-		}
-	}
-	raycasting(*w, w->id);
+		raycasting(*w, w->id);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 15:10:35 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:55:11 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,5 +179,6 @@ t_intersection		find_intersection_hor(double alpha, t_win_info w, \
 int					key_hook(int key, void *param);
 int					ft_close(int keycode, void *param);
 int					menu(int keycode, t_win_info *w);
+void				init_data(t_win_info *w, int token);
 
 #endif
