@@ -6,7 +6,7 @@
 /*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 07:45:34 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/13 15:02:38 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	deplacement(t_win_info *w, int keycode)
 		speed = 20;
 	else
 		speed = 45;
-	if (keycode == 13)
+	if (keycode == w->player.forward)
 	{
 		if (cos(angle) > 0)
 			w->player.pos_x += speed * fabs(cos(angle));
@@ -49,7 +49,7 @@ void	deplacement(t_win_info *w, int keycode)
 		else if (sin(angle) < 0)
 			w->player.pos_y += speed * fabs(sin(angle));
 	}
-	else if (keycode == 1)
+	else if (keycode == w->player.backward)
 	{
 		if (cos(angle) > 0)
 			w->player.pos_x -= speed * fabs(cos(angle));
@@ -76,16 +76,19 @@ int		key_hook(int key, void *param)
 	int					token;
 	static int			mob_v = 0;
 	w = (t_win_info*)param;
-	menu(key, w);
+	if(w->m.statut == 1 && key == 51)
+		w->m.statut = 0;
+	if(w->m.statut == 0)
+		menu(key, w);
 	if (key == KEY_ESC)
 		ft_close(key, param);
 	if(w->m.statut == 1)
 	{
-	if (key == 0)
+	if (key == w->player.left)
 		w->player.dir_x += 5;
-	if (key == 2)
+	if (key == w->player.right)
 		w->player.dir_x -= 5;
-	if (key == 1 || key == 13)
+	if (key == w->player.forward || key == w->player.backward)
 		deplacement(w, key);
 	if (key == SPRINT)
 		w->player.sprint = w->player.sprint ^ 1;

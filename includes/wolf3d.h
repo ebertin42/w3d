@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 07:54:13 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/13 15:10:35 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct		s_menu
 	int				statut;
 	int				link;
 	int				set;
+	int				change;
 	int				token_set;
 	void			*menu;
 	void			*settings;
@@ -109,6 +110,11 @@ typedef struct		s_player
 	int				sprint;
 	int				life;
 	int				ammo;
+	int				score;
+	int				forward;
+	int				backward;
+	int				left;
+	int				right;
 }					t_player;
 
 typedef struct		s_img
@@ -128,6 +134,7 @@ typedef struct		s_coord
 
 typedef struct		s_win_info
 {
+	char			*str;
 	void			*mlx;
 	void			*win;
 	void			*menu;

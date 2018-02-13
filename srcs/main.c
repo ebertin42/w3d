@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 07:13:14 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/13 15:13:43 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,18 @@ void	put_sprite_wep(t_win_info *w, int texid)
 	}
 }
 
-void	init_data(t_win_info *w)
+void	init_data(t_win_info *w, int token)
 {
 	int a;
 	int b;
 
+	if (token == 1)
+	{
+	w->player.left = LEFT;
+	w->player.right = RIGHT;
+	w->player.backward = BACKWARD;
+	w->player.forward = FORWARD;
+	}
 	w->player.sprint = 0;
 	w->player.life = 100;
 	w->player.dir_x = 0;
@@ -86,6 +93,8 @@ int		key_release(int key, void *param)
 
 int		menu(int key, t_win_info *w)
 {
+	t_line *data;
+
 	if (w->m.token_set == 0)
 	{
 		if(key == 126)
@@ -134,12 +143,21 @@ int		menu(int key, t_win_info *w)
 			if (w->m.link == 0 || w->m.link == 1)
 			{
 				w->m.statut = 1;
+				if (w->m.link == 0)
+				{
+	data = read_data(w->str);
+	check_good_nbdata(data);
+	translate(data, w);
+
+					init_data(w, 42);
+			}
 			}
 			if (w->m.link == 2)
 			{
 				w->m.set = 0;
 				w->m.token_set = 1;
 				mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+				mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 167);
 			}
 			if (w->m.link == 3)
 			{
@@ -149,54 +167,93 @@ int		menu(int key, t_win_info *w)
 	}
 	else
 	{
-		if(key == 36)
-		{
-			if (w->m.set == 0)
-				ft_putstr("test");
-			else if (w->m.set == 1)
-				ft_putstr("test");
-			else if (w->m.set == 2)
-				ft_putstr("test");
-			else if (w->m.set == 3)
-				ft_putstr("test");
-		}
-		if(key == 126)
-		{
-			w->m.set--;
-			if (w->m.set < 0)
-				w->m.set = 3;
-		}
-		if(key == 125)
-		{
-			w->m.set++;
-			if (w->m.set > 3)
-				w->m.set = 0;
-		}
+		printf("%d\n", key);
 		if (key == 51 && w->m.link == 2)
 		{
-			w->m.link = 1;
+			w->m.link = 0;
 			mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 160, 170);
+			w->m.token_set = 0;
 		}
-		if(w->m.set == 0)
-		{
-			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
-			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 165);
+		else{
+			if(key == 36)
+			{
+				mlx_string_put(w->mlx, w->win, 10, 140, 0xEEEEEE, "Choose your new key");
+				mlx_string_put(w->mlx, w->win, 10, 160, 0xEEEEEE, "by pressing it.");
+				w->m.change = 2;
+			}
+			if (w->m.change == 1)
+			{
+				if (w->m.set == 0)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 167);
+					w->player.forward = key;
+				}
+				else if (w->m.set == 1)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 232);
+					w->player.backward = key;
+				}
+				else if (w->m.set == 2)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 343);
+					w->player.left = key;
+				}
+				else if (w->m.set == 3)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 408);
+					w->player.right = key;
+				}
+				mlx_string_put(w->mlx, w->win, 10, 150, 0x00FF00, "Change saved.");
+				w->m.change = 0;
+			}
+			else if (key != 36)
+			{
+				if(key == 126)
+				{
+					w->m.set--;
+					if (w->m.set < 0)
+						w->m.set = 3;
+				}
+				if(key == 125)
+				{
+					w->m.set++;
+					if (w->m.set > 3)
+						w->m.set = 0;
+				}
+				if (key == 51 && w->m.link == 2)
+				{
+					w->m.link = 1;
+					mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+				}
+				if(w->m.set == 0)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 167);
+				}
+				else if(w->m.set == 1)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 232);
+				}
+				else if (w->m.set == 2)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 343);
+				}
+				else if (w->m.set == 3)
+				{
+					mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+					mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 575, 408);
+				}
+			}
 		}
-		else if(w->m.set == 1)
-		{
-			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
-			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 232);
-		}
-		else if (w->m.set == 2)
-		{
-			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
-			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 343);
-		}
-		else if (w->m.set == 3)
-		{
-			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
-			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 410);
-		}
+		if (w->m.change == 2)
+			w->m.change = 1;
 	}
 	return (0);
 }
@@ -209,6 +266,7 @@ void	init_menu(t_win_info *w)
 	w->m.link = 0;
 	w->m.statut = 0;
 	w->m.token_set = 0;
+	w->m.change = 0;
 	w->m.menu = mlx_xpm_file_to_image(w->mlx, "assets/menu/menu.XPM", &a, &b);
 	w->m.credits = mlx_xpm_file_to_image(w->mlx, "assets/menu/credits.XPM", &a, &b);
 	w->m.settings = mlx_xpm_file_to_image(w->mlx, "assets/menu/settings.XPM", &a, &b);
@@ -222,6 +280,7 @@ int		main(int ac, char **av)
 
 	if (ac != 2)
 		return (0);
+	w.str = av[1];
 	data = read_data(av[1]);
 	check_good_nbdata(data);
 	translate(data, &w);
@@ -229,7 +288,7 @@ int		main(int ac, char **av)
 	w.m.statut = 0;
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
-	init_data(&w);
+	init_data(&w, 1);
 	init_menu(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.m.menu, 0, 0);
 	mlx_put_image_to_window(w.mlx, w.win, w.m.bombe, 160, 170);
