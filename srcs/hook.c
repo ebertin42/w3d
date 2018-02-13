@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 18:42:11 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:40:18 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,73 @@ void	deplacement(t_win_info *w, int keycode)
 		forward(w, angle, speed);
 	else if (keycode == w->player.backward)
 		backward(w, angle, speed);
-	if (w->map[((int)(w->player.pos_y) / (int)BLOC)][((int)(w->player.pos_x) /
-	(int)BLOC)] == WALL)
+	if (w->map[((int)(w->player.pos_y) / IBLOC)][((int)(w->player.pos_x) /
+				IBLOC)] == WALL)
 	{
 		w->player.pos_x = tmp_x;
 		w->player.pos_y = tmp_y;
 	}
 }
 
+void	damage(t_win_info *w)
+{
+	static int mob_v = 0;
+
+	if (w->map[(int)w->player.pos_y / IBLOC][(int)w->player.pos_x / IBLOC] \
+			== MONSTER)
+	{
+		if (mob_v == 0)
+			w->player.life -= 15;
+		mob_v++;
+		if (mob_v >= 3)
+			mob_v = 0;
+		if (w->player.life <= 0)
+		{
+			w->player.pos_x = w->player.start_x;
+			w->player.pos_y = w->player.start_y;
+			w->player.life = 100;
+			menu_bombe(*w, 160, 170, 0);
+			w->m.statut = 42;
+		}
+	}
+	if (w->m.statut == 1)
+		raycasting(*w, w->id);
+}
+
+void	hit_mob(t_win_info *w)
+{
+	t_hit_mob	v;
+
+	w->id = (w->id + 1) > 6 ? 4 : (w->id + 1);
+	if (w->player.ammo == 0)
+	{
+		system("afplay ./sounds/click.wav &");
+		w->id = 4;
+	}
+	else
+	{
+		w->player.ammo--;
+		system("afplay ./sounds/explode.wav &");
+	}
+	v.a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
+	v.b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
+	v.a.dist = sqrt(pow((w->player.pos_x - v.a.x), 2) + pow((w->player.pos_y -
+					v.a.y), 2));
+	v.b.dist = sqrt(pow((w->player.pos_x - v.a.x), 2) + pow((w->player.pos_y -
+					v.a.y), 2));
+	v.token = v.a.dist > v.b.dist ? v.b.token : v.a.token;
+	if (v.token == 1)
+	{
+		v.a.x = v.a.dist > v.b.dist ? v.b.x / BLOC : v.a.x / BLOC;
+		v.a.y = v.a.dist > v.b.dist ? v.b.y / BLOC : v.a.y / BLOC;
+		w->map[(int)v.a.y][(int)v.a.x] = 8;
+	}
+}
+
 int		key_hook(int key, void *param)
 {
 	t_win_info			*w;
-	t_intersection		a;
-	t_intersection		b;
-	int					token;
-	static int			mob_v = 0;
+
 	w = (t_win_info*)param;
 	if (w->m.statut == 1 && key == 51)
 		w->m.statut = 0;
@@ -81,47 +133,7 @@ int		key_hook(int key, void *param)
 		}
 		if (key == 49)
 		{
-			w->id++;
-			w->id = w->id > 6 ? 4 : w->id;
-			if (w->player.ammo == 0)
-			{
-				system("afplay ./sounds/click.wav &");
-				w->id = 4;
-			}
-			else
-			{
-				w->player.ammo--;
-				system("afplay ./sounds/explode.wav &");
-			}
-			a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
-			b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
-			a.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));
-			b.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));
-			token = a.dist > b.dist ? b.token : a.token;
-			if (token == 1)
-			{
-				a.x = a.dist > b.dist ? b.x : a.x;
-				a.x /= BLOC;
-				a.y = a.dist > b.dist ? b.y : a.y;
-				a.y /= BLOC;
-				w->map[(int)a.y][(int)a.x] = 8;
-			}
-		}
-		if (w->map[(int)w->player.pos_y / (int)BLOC][(int)w->player.pos_x / (int)BLOC] == MONSTER)
-		{
-			if (mob_v == 0)
-				w->player.life -= 15;
-			mob_v++;
-			if (mob_v >= 3)
-				mob_v = 0;
-			if (w->player.life <= 0)
-			{
-				w->player.pos_x = w->player.start_x;
-				w->player.pos_y = w->player.start_y;
-				w->player.life = 100;
-				menu_bombe(*w, 160, 170, 0);
-				w->m.statut = 42;
-			}
+			hit_mob(w);
 		}
 		if (w->m.statut == 1)
 			raycasting(*w, w->id);

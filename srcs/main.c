@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 18:38:36 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:23:28 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,21 @@ void	put_sprite_wep(t_win_info *w, int texid)
 	}
 }
 
+void	init_key(t_win_info *w)
+{
+	w->player.left = LEFT;
+	w->player.right = RIGHT;
+	w->player.backward = BACKWARD;
+	w->player.forward = FORWARD;
+}
+
 void	init_data(t_win_info *w, int token)
 {
 	int a;
 	int b;
 
 	if (token == 1)
-	{
-		w->player.left = LEFT;
-		w->player.right = RIGHT;
-		w->player.backward = BACKWARD;
-		w->player.forward = FORWARD;
-	}
+		init_key(w);
 	w->player.sprint = 0;
 	w->player.life = 100;
 	w->player.dir_x = 0;
@@ -71,19 +74,6 @@ void	init_data(t_win_info *w, int token)
 		child();
 }
 
-int		key_release(int key, void *param)
-{
-	t_win_info	*w;
-
-	w = (t_win_info*)param;
-	if (key == 49 && w->m.statut == 1)
-	{
-		w->id = 4;
-		raycasting(*w, 4);
-	}
-	return (0);
-}
-
 void	init_menu(t_win_info *w)
 {
 	int a;
@@ -96,10 +86,13 @@ void	init_menu(t_win_info *w)
 	w->m.gameover_menu = 0;
 	w->m.go = 0;
 	w->m.menu = mlx_xpm_file_to_image(w->mlx, "assets/menu/menu.XPM", &a, &b);
-	w->m.credits = mlx_xpm_file_to_image(w->mlx, "assets/menu/credits.XPM", &a, &b);
-	w->m.settings = mlx_xpm_file_to_image(w->mlx, "assets/menu/settings.XPM", &a, &b);
+	w->m.credits = mlx_xpm_file_to_image(w->mlx, "assets/menu/credits.XPM",
+			&a, &b);
+	w->m.settings = mlx_xpm_file_to_image(w->mlx, "assets/menu/settings.XPM",
+			&a, &b);
 	w->m.bombe = mlx_xpm_file_to_image(w->mlx, "assets/menu/bombe.XPM", &a, &b);
-	w->m.gameover = mlx_xpm_file_to_image(w->mlx, "assets/menu/gameover.XPM", &a, &b);
+	w->m.gameover = mlx_xpm_file_to_image(w->mlx, "assets/menu/gameover.XPM",
+			&a, &b);
 }
 
 int		main(int ac, char **av)

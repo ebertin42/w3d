@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 18:27:08 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:19:44 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ t_intersection	find_intersection_ver(double alpha, t_win_info w, int obstacle)
 
 int				raycasting(t_win_info w, int test)
 {
-	t_obstacle		ob;
-	t_obstacle		ob_mob;
-	t_obstacle		ob_mob_dead;
+	t_all_ob		v;
 	double			alpha;
 	int				x;
 
@@ -93,14 +91,14 @@ int				raycasting(t_win_info w, int test)
 	{
 		alpha = (w.player.dir_x + (w.player.fov / 2)) -
 			((w.player.fov / SIZE_X) * x);
-		wall_detection(&ob, w, alpha);
-		mob_detection(&ob_mob, w, alpha, MONSTER);
-		mob_detection(&ob_mob_dead, w, alpha, 8);
-		draw(x, &w, ob);
-		if (ob_mob.token == 1 && ob.dist > ob_mob.dist)
-			draw(x, &w, ob_mob);
-		if (ob_mob_dead.token == 1 && ob.dist > ob_mob_dead.dist)
-			draw(x, &w, ob_mob_dead);
+		wall_detection(&v.ob, w, alpha);
+		mob_detection(&v.ob_mob, w, alpha, MONSTER);
+		mob_detection(&v.ob_mob_dead, w, alpha, 8);
+		draw(x, &w, v.ob);
+		if (v.ob_mob.token == 1 && v.ob.dist > v.ob_mob.dist)
+			draw(x, &w, v.ob_mob);
+		if (v.ob_mob_dead.token == 1 && v.ob.dist > v.ob_mob_dead.dist)
+			draw(x, &w, v.ob_mob_dead);
 		x++;
 	}
 	hud(&w);

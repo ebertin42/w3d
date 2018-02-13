@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:28:18 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 16:31:51 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:11:22 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ void	backward(t_win_info *w, double angle, int speed)
 		w->player.pos_y -= -1 * (speed * fabs(sin(angle)));
 	else if (sin(angle) < 0)
 		w->player.pos_y -= speed * fabs(sin(angle));
+}
+
+int		key_release(int key, void *param)
+{
+	t_win_info	*w;
+
+	w = (t_win_info*)param;
+	if (key == 49 && w->m.statut == 1)
+	{
+		w->id = 4;
+		raycasting(*w, 4);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 18:35:23 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:37:46 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define SIZE_X 720
 # define SIZE_Y 480
 # define BLOC	128.00
+# define IBLOC	128
 # define RAD	(M_PI / 180.00)
 # define WIN_X 720
 # define WIN_Y 480
@@ -79,6 +80,13 @@ typedef struct		s_obstacle
 	int				col;
 	int				token;
 }					t_obstacle;
+
+typedef struct		s_all_ob
+{
+	t_obstacle		ob;
+	t_obstacle		ob_mob;
+	t_obstacle		ob_mob_dead;
+}					t_all_ob;
 
 typedef struct		s_raycasting
 {
@@ -138,6 +146,13 @@ typedef struct		s_coord
 	int				y;
 }					t_coord;
 
+typedef struct		s_hit_mob
+{
+	int				token;
+	t_intersection	a;
+	t_intersection	b;
+}					t_hit_mob;
+
 typedef struct		s_win_info
 {
 	char			*str;
@@ -178,7 +193,7 @@ void				file_image(t_win_info *w);
 void				ammo(t_win_info *w);
 void				ennemies_place(double tab[32][32]);
 int					mob_detection(t_obstacle *ob, t_win_info w, double alpha,
-	int state);
+		int state);
 int					wall_detection(t_obstacle *ob, t_win_info w, double alpha);
 t_intersection		find_intersection_ver(double alpha, t_win_info w, \
 		int obstacle);
@@ -192,5 +207,8 @@ void				backward(t_win_info *w, double angle, int speed);
 void				forward(t_win_info *w, double angle, int speed);
 void				game_over(t_win_info *w, int key);
 void				menu_bombe(t_win_info w, int x, int y, int token);
+void				new_game(t_win_info *w);
+void				message_change(t_win_info *w);
+int					key_release(int key, void *param);
 
 #endif
