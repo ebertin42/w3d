@@ -6,7 +6,7 @@
 /*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 15:02:38 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:32:57 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,15 @@ int		key_hook(int key, void *param)
 		w->id++;
 		w->id = w->id > 6 ? 4 : w->id;
 		if (w->player.ammo == 0)
+		{
+			system("afplay ./sounds/click.wav &");
 			w->id = 4;
+		}
+		else
+		{
+			w->player.ammo--;
+			system("afplay ./sounds/explode.wav &");
+		}
 		a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
 		b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
 		a.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));

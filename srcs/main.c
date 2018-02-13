@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 15:13:43 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:30:54 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,6 @@ int		key_release(int key, void *param)
 	if (key == 49 && w->m.statut == 1)
 	{
 		w->id = 4;
-		if (w->player.ammo > 0)
-		{
-			w->player.ammo = w->player.ammo - 1;
-			system("afplay ./sounds/explode.wav &");
-		}
-		else
-			system("afplay ./sounds/click.wav &");
 		raycasting(*w, 4);
 	}
 	return (0);
