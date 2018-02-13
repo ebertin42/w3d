@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 13:45:56 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 17:29:52 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:09:54 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	load_texture_sprite(t_win_info *w)
 		"./assets/MP-Frame3.XPM", &a, &b);
 	w->tex[6].img = mlx_xpm_file_to_image(w->mlx,
 		"./assets/MP-Frame4.XPM", &a, &b);
-	w->tex[7].img = mlx_xpm_file_to_image(w->mlx,
-		"./assets/nazi.XPM", &a, &b);
+	w->tex[7].img = mlx_xpm_file_to_image(w->mlx, "./assets/hitle.XPM", &a, &b);
+	w->tex[8].img = mlx_xpm_file_to_image(w->mlx, "./assets/dead.XPM", &a, &b);
 	if (!(w->tex[4].img || w->tex[5].img || w->tex[6].img || w->tex[7].img))
 		return (0);
 	w->tex[4].str = mlx_get_data_addr(w->tex[4].img,
@@ -57,5 +57,7 @@ int	load_texture_sprite(t_win_info *w)
 									&w->tex[6].b, &w->tex[6].s, &w->tex[6].e);
 	w->tex[7].str = mlx_get_data_addr(w->tex[7].img,
 									&w->tex[7].b, &w->tex[7].s, &w->tex[7].e);
+	w->tex[8].str = mlx_get_data_addr(w->tex[8].img,
+									&w->tex[8].b, &w->tex[8].s, &w->tex[8].e);
 	return (1);
 }

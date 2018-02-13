@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 15:51:00 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:06:34 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		key_hook(int key, void *param)
 				a.x /= BLOC;
 				a.y = a.dist > b.dist ? b.y : a.y;
 				a.y /= BLOC;
-				w->map[(int)a.y][(int)a.x] = 0;
+				w->map[(int)a.y][(int)a.x] = 8;
 			}
 		}
 		if (w->map[(int)w->player.pos_y / (int)BLOC][(int)w->player.pos_x / (int)BLOC] == MONSTER)
@@ -143,4 +143,3 @@ int		key_hook(int key, void *param)
 	}
 	return (0);
 }
-

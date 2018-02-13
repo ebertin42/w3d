@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 08:07:45 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/13 16:08:29 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		wall_detection(t_obstacle *ob, t_win_info w, double alpha)
 	return (1);
 }
 
-int		mob_detection(t_obstacle *ob, t_win_info w, double alpha)
+int		mob_detection(t_obstacle *ob, t_win_info w, double alpha, int state)
 {
 	t_raycasting r;
 
@@ -135,9 +135,9 @@ int		mob_detection(t_obstacle *ob, t_win_info w, double alpha)
 	r.a.dist = 10000;
 	r.b.dist = 10000;
 	if (sin(alpha * RAD))
-		r.a = find_intersection_hor(alpha, w, MONSTER);
+		r.a = find_intersection_hor(alpha, w, state);
 	if (cos(alpha * RAD))
-		r.b = find_intersection_ver(alpha, w, MONSTER);
+		r.b = find_intersection_ver(alpha, w, state);
 	r.a.dist = sqrt(pow((w.player.pos_x - r.a.x), 2) + pow((w.player.pos_y - r.a.y), 2));
 	r.b.dist = sqrt(pow((w.player.pos_x - r.b.x), 2) + pow((w.player.pos_y - r.b.y), 2));
 	if (r.a.dist > 0 && r.b.dist > 0)
@@ -146,7 +146,7 @@ int		mob_detection(t_obstacle *ob, t_win_info w, double alpha)
 		ob->dist = r.a.dist;
 	else if (r.b.dist > 0)
 		ob->dist = r.b.dist;
-	ob->texid = MONSTER;
+	ob->texid = state;
 	ob->h = BLOC / ob->dist * w.dist_player_proj;
 	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC : (int)r.a.x % (int)BLOC;
 	ob->token = r.a.dist > r.b.dist ? r.b.token : r.a.token;
@@ -157,6 +157,7 @@ int		raycasting(t_win_info w, int test)
 {
 	t_obstacle		ob;
 	t_obstacle		ob_mob;
+	t_obstacle		ob_mob_dead;
 	double			alpha;
 	int				x;
 
@@ -167,10 +168,13 @@ int		raycasting(t_win_info w, int test)
 		alpha = (w.player.dir_x + (w.player.fov / 2)) -
 			((w.player.fov / SIZE_X) * x);
 		wall_detection(&ob, w, alpha);
-		mob_detection(&ob_mob, w, alpha);
+		mob_detection(&ob_mob, w, alpha, MONSTER);
+		mob_detection(&ob_mob_dead, w, alpha, 8);
 		draw(x, &w, ob);
-		if(ob_mob.token == 1 && ob.dist > ob_mob.dist)
+		if (ob_mob.token == 1 && ob.dist > ob_mob.dist)
 			draw(x, &w, ob_mob);
+		if (ob_mob_dead.token == 1 && ob.dist > ob_mob_dead.dist)
+			draw(x, &w, ob_mob_dead);
 		x++;
 	}
 	hud(&w);

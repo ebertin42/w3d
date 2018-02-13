@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 16:03:39 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:09:20 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef struct		s_win_info
 	void			*menu;
 	t_player		player;
 	t_img			img;
-	t_img			tex[8];
+	t_img			tex[9];
 	t_img			sky;
 	double			map[32][32];
 	double			dist_player_proj;
@@ -173,7 +173,8 @@ void				child();
 void				file_image(t_win_info *w);
 void				ammo(t_win_info *w);
 void				ennemies_place(double tab[32][32]);
-int					mob_detection(t_obstacle *ob, t_win_info w, double alpha);
+int					mob_detection(t_obstacle *ob, t_win_info w, double alpha,
+	int state);
 t_intersection		find_intersection_ver(double alpha, t_win_info w, \
 		int obstacle);
 t_intersection		find_intersection_hor(double alpha, t_win_info w, \

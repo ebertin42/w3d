@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 15:54:38 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:05:41 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	put_sprite_wep(t_win_info *w, int texid)
 		while (x < SIZE_X)
 		{
 			color = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-					((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
+				((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
 				w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-						((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
+				((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
 				(w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-									((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
+				((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
 			if (color != 4288151432)
 				put_pixel_image(x, y, color, w);
 			x++;
