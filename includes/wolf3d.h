@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 17:53:40 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 02:26:08 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@
 # define RIGHT		2
 # define KEY_ESC	53
 # define SPRINT		257
+
+typedef struct		s_menu
+{
+	int				statut;
+	int				link;
+	int				set;
+	int				token_set;
+	void			*menu;
+	void			*settings;
+	void			*credits;
+	void			*bombe;
+}					t_menu;
 
 typedef struct		s_color
 {
@@ -117,6 +129,7 @@ typedef struct		s_win_info
 {
 	void			*mlx;
 	void			*win;
+	void			*menu;
 	t_player		player;
 	t_img			img;
 	t_img			tex[8];
@@ -126,6 +139,7 @@ typedef struct		s_win_info
 	int				s_player;
 	int				id;
 	pid_t			pid;
+	t_menu			m;
 }					t_win_info;
 
 t_line				*read_data(char *file);
@@ -155,5 +169,6 @@ t_intersection		find_intersection_hor(double alpha, t_win_info w, \
 		int obstacle);
 int					key_hook(int key, void *param);
 int					ft_close(int keycode, void *param);
+int					menu(int keycode, t_win_info *w);
 
 #endif

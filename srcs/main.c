@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/12 17:24:05 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 02:37:08 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	put_sprite_wep(t_win_info *w, int texid)
 		while (x < SIZE_X)
 		{
 			color = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-			((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
-			w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-			((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
-			(w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-			((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
+					((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
+				w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
+						((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
+				(w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
+									((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
 			if (color != 4288151432)
 				put_pixel_image(x, y, color, w);
 			x++;
@@ -68,13 +68,144 @@ int		key_release(int key, void *param)
 	t_win_info *w;
 
 	w = (t_win_info*)param;
-	if (key == 49)
+	if (key == 49 && w->m.statut == 1)
 	{
 		system("afplay ./sounds/explode.wav &");
 		w->id = 4;
 		raycasting(*w, 4);
 	}
 	return (0);
+}
+
+int		menu(int key, t_win_info *w)
+{
+	if (w->m.token_set == 0)
+	{
+		if(key == 126)
+		{
+			w->m.link--;
+			if (w->m.link < 0)
+				w->m.link = 3;
+		}
+		if(key == 125)
+		{
+			w->m.link++;
+			if (w->m.link > 3)
+				w->m.link = 0;
+		}
+		if (key == 51 && w->m.link == 2)
+		{
+			w->m.link = 1;
+			mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+		}
+		if(w->m.link == 0)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 160, 170);
+		}
+		else if(w->m.link == 1)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 180, 245);
+		}
+		else if (w->m.link == 2)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 180, 315);
+		}
+		else
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 170, 415);
+		}
+		if (key == 8)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.credits, 0, 0);
+		}
+		if (key == 36)
+		{
+			if (w->m.link == 0 || w->m.link == 1)
+			{
+				w->m.statut = 1;
+			}
+			if (w->m.link == 2)
+			{
+				w->m.set = 0;
+				w->m.token_set = 1;
+				mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+			}
+			if (w->m.link == 3)
+			{
+				ft_close(key, w);
+			}
+		}
+	}
+	else
+	{
+		if(key == 36)
+		{
+			if (w->m.set == 0)
+				ft_putstr("test");
+			else if (w->m.set == 1)
+				ft_putstr("test");
+			else if (w->m.set == 2)
+				ft_putstr("test");
+			else if (w->m.set == 3)
+				ft_putstr("test");
+		}
+		if(key == 126)
+		{
+			w->m.set--;
+			if (w->m.set < 0)
+				w->m.set = 3;
+		}
+		if(key == 125)
+		{
+			w->m.set++;
+			if (w->m.set > 3)
+				w->m.set = 0;
+		}
+		if (key == 51 && w->m.link == 2)
+		{
+			w->m.link = 1;
+			mlx_put_image_to_window(w->mlx, w->win, w->m.menu, 0, 0);
+		}
+		if(w->m.set == 0)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 165);
+		}
+		else if(w->m.set == 1)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 232);
+		}
+		else if (w->m.set == 2)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 343);
+		}
+		else if (w->m.set == 3)
+		{
+			mlx_put_image_to_window(w->mlx, w->win, w->m.settings, 0, 0);
+			mlx_put_image_to_window(w->mlx, w->win, w->m.bombe, 640, 410);
+		}
+	}
+	return (0);
+}
+
+void	init_menu(t_win_info *w)
+{
+	int a;
+	int b;
+
+	w->m.link = 0;
+	w->m.statut = 0;
+	w->m.token_set = 0;
+	w->m.menu = mlx_xpm_file_to_image(w->mlx, "assets/menu/menu.XPM", &a, &b);
+	w->m.credits = mlx_xpm_file_to_image(w->mlx, "assets/menu/credits.XPM", &a, &b);
+	w->m.settings = mlx_xpm_file_to_image(w->mlx, "assets/menu/settings.XPM", &a, &b);
+	w->m.bombe = mlx_xpm_file_to_image(w->mlx, "assets/menu/bombe.XPM", &a, &b);
 }
 
 int		main(int ac, char **av)
@@ -88,12 +219,17 @@ int		main(int ac, char **av)
 	check_good_nbdata(data);
 	translate(data, &w);
 	ennemies_place(w.map);
+	w.m.statut = 0;
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, SIZE_X, SIZE_Y, "Wolf 3D");
 	init_data(&w);
+	init_menu(&w);
+	mlx_put_image_to_window(w.mlx, w.win, w.m.menu, 0, 0);
+	mlx_put_image_to_window(w.mlx, w.win, w.m.bombe, 160, 170);
 	load_texture_mur(&w);
 	load_texture_sprite(&w);
-	raycasting(w, 4);
+	//raycasting(w, 4);
+	//	mlx_hook(w.win, 4, 0, menu, &w);
 	mlx_hook(w.win, 17, 0, ft_close, &w);
 	mlx_hook(w.win, 2, 0, key_hook, &w);
 	mlx_hook(w.win, 3, 0, key_release, &w);

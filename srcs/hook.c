@@ -6,7 +6,7 @@
 /*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/12 17:25:44 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 01:27:53 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ int		key_hook(int key, void *param)
 	static int			mob_v = 0;
 
 	w = (t_win_info*)param;
+	menu(key, w);
 	if (key == KEY_ESC)
 		ft_close(key, param);
+	if(w->m.statut == 1)
+	{
 	if (key == 0)
 		w->player.dir_x += 5;
 	if (key == 2)
@@ -120,6 +123,7 @@ int		key_hook(int key, void *param)
 		}
 	}
 	raycasting(*w, w->id);
+	}
 	return (0);
 }
 
