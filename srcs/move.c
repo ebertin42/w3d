@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:28:18 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 19:11:22 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:52:50 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,28 @@ int		key_release(int key, void *param)
 		raycasting(*w, 4);
 	}
 	return (0);
+}
+
+int		ft_close(int keycode, void *param)
+{
+	t_win_info	*w;
+
+	w = (t_win_info*)param;
+	(void)keycode;
+	kill(w->pid, SIGKILL);
+	system("pkill afplay");
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+void	ft_moove(t_win_info *w, int key)
+{
+	if (key == w->player.left)
+		w->player.dir_x += 5;
+	if (key == w->player.right)
+		w->player.dir_x -= 5;
+	if (key == w->player.forward || key == w->player.backward)
+		deplacement(w, key);
+	if (key == SPRINT)
+		w->player.sprint = w->player.sprint ^ 1;
 }

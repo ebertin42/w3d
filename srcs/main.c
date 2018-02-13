@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 19:23:28 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:48:42 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_data(t_win_info *w, int token)
 
 	if (token == 1)
 		init_key(w);
-	w->player.sprint = 0;
+	w->player.sprint = 1;
 	w->player.life = 100;
 	w->player.dir_x = 0;
 	w->player.ammo = 8;

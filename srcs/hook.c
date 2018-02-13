@@ -6,23 +6,11 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 19:40:18 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:52:06 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
-
-int		ft_close(int keycode, void *param)
-{
-	t_win_info	*w;
-
-	w = (t_win_info*)param;
-	(void)keycode;
-	kill(w->pid, SIGKILL);
-	system("pkill afplay");
-	exit(EXIT_SUCCESS);
-	return (0);
-}
 
 void	deplacement(t_win_info *w, int keycode)
 {
@@ -75,6 +63,17 @@ void	damage(t_win_info *w)
 		raycasting(*w, w->id);
 }
 
+void	init_mob_ray(t_hit_mob *v, t_win_info *w)
+{
+	v->a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
+	v->b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
+	v->a.dist = sqrt(pow((w->player.pos_x - v->a.x), 2) + pow((w->player.pos_y -
+					v->a.y), 2));
+	v->b.dist = sqrt(pow((w->player.pos_x - v->a.x), 2) + pow((w->player.pos_y -
+					v->a.y), 2));
+	v->token = v->a.dist > v->b.dist ? v->b.token : v->a.token;
+}
+
 void	hit_mob(t_win_info *w)
 {
 	t_hit_mob	v;
@@ -90,13 +89,7 @@ void	hit_mob(t_win_info *w)
 		w->player.ammo--;
 		system("afplay ./sounds/explode.wav &");
 	}
-	v.a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
-	v.b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
-	v.a.dist = sqrt(pow((w->player.pos_x - v.a.x), 2) + pow((w->player.pos_y -
-					v.a.y), 2));
-	v.b.dist = sqrt(pow((w->player.pos_x - v.a.x), 2) + pow((w->player.pos_y -
-					v.a.y), 2));
-	v.token = v.a.dist > v.b.dist ? v.b.token : v.a.token;
+	init_mob_ray(&v, w);
 	if (v.token == 1)
 	{
 		v.a.x = v.a.dist > v.b.dist ? v.b.x / BLOC : v.a.x / BLOC;
@@ -118,23 +111,14 @@ int		key_hook(int key, void *param)
 		ft_close(key, param);
 	if (w->m.statut == 1)
 	{
-		if (key == w->player.left)
-			w->player.dir_x += 5;
-		if (key == w->player.right)
-			w->player.dir_x -= 5;
-		if (key == w->player.forward || key == w->player.backward)
-			deplacement(w, key);
-		if (key == SPRINT)
-			w->player.sprint = w->player.sprint ^ 1;
+		ft_moove(w, key);
 		if (key == 15 && w->player.ammo != 8)
 		{
 			w->player.ammo = 8;
 			system("afplay ./sounds/reload.mp3 -v 20 &");
 		}
 		if (key == 49)
-		{
 			hit_mob(w);
-		}
 		if (w->m.statut == 1)
 			raycasting(*w, w->id);
 	}

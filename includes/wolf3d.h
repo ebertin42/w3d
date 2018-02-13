@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 19:37:46 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:51:07 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,5 +210,7 @@ void				menu_bombe(t_win_info w, int x, int y, int token);
 void				new_game(t_win_info *w);
 void				message_change(t_win_info *w);
 int					key_release(int key, void *param);
+void				ft_moove(t_win_info *w, int key);
+void				deplacement(t_win_info *w, int keycode);
 
 #endif
