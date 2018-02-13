@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 02:37:08 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 07:13:14 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_data(t_win_info *w)
 	w->player.sprint = 0;
 	w->player.life = 100;
 	w->player.dir_x = 0;
+	w->player.ammo = 8;
 	w->id = 4;
 	w->player.dir_y = 0;
 	w->player.pos_x = w->player.start_x;
@@ -65,13 +66,19 @@ void	init_data(t_win_info *w)
 
 int		key_release(int key, void *param)
 {
-	t_win_info *w;
+	t_win_info	*w;
 
 	w = (t_win_info*)param;
 	if (key == 49 && w->m.statut == 1)
 	{
-		system("afplay ./sounds/explode.wav &");
 		w->id = 4;
+		if (w->player.ammo > 0)
+		{
+			w->player.ammo = w->player.ammo - 1;
+			system("afplay ./sounds/explode.wav &");
+		}
+		else
+			system("afplay ./sounds/click.wav &");
 		raycasting(*w, 4);
 	}
 	return (0);

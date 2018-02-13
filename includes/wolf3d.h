@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 02:26:08 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 07:54:13 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct		s_player
 	double			fov;
 	int				sprint;
 	int				life;
+	int				ammo;
 }					t_player;
 
 typedef struct		s_img
@@ -161,6 +162,7 @@ int					load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
 void				child();
 void				file_image(t_win_info *w);
+void				ammo(t_win_info *w);
 void				ennemies_place(double tab[32][32]);
 int					mob_detection(t_obstacle *ob, t_win_info w, double alpha);
 t_intersection		find_intersection_ver(double alpha, t_win_info w, \

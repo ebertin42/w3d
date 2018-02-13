@@ -6,7 +6,7 @@
 /*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 01:27:53 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/13 07:45:34 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		key_hook(int key, void *param)
 	t_intersection		b;
 	int					token;
 	static int			mob_v = 0;
-
 	w = (t_win_info*)param;
 	menu(key, w);
 	if (key == KEY_ESC)
@@ -90,10 +89,17 @@ int		key_hook(int key, void *param)
 		deplacement(w, key);
 	if (key == SPRINT)
 		w->player.sprint = w->player.sprint ^ 1;
+	if (key == 15 && w->player.ammo != 8)
+	{
+		w->player.ammo = 8;
+		system("afplay ./sounds/reload.mp3 -v 20 &");
+	}
 	if (key == 49)
 	{
 		w->id++;
 		w->id = w->id > 6 ? 4 : w->id;
+		if (w->player.ammo == 0)
+			w->id = 4;
 		a = find_intersection_ver(w->player.dir_x, *w, MONSTER);
 		b = find_intersection_hor(w->player.dir_x, *w, MONSTER);
 		a.dist = sqrt(pow((w->player.pos_x - a.x), 2) + pow((w->player.pos_y - a.y), 2));
