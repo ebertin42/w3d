@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/14 14:07:19 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/14 14:12:00 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	init_data(t_win_info *w, int token)
 	int a;
 	int b;
 
-	if (token == 1)
-		init_key(w);
 	w->player.sprint = 1;
 	w->player.life = 100;
 	w->player.dir_x = 0;
@@ -67,6 +65,7 @@ void	init_data(t_win_info *w, int token)
 	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
 	if (token == 1)
 	{
+		init_key(w);
 		w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
 		w->sky.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
 		if(!(w->sky.img && w->img.img))
