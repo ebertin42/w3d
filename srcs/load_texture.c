@@ -6,13 +6,13 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 13:45:56 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 17:16:21 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:37:58 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int	load_texture_mur(t_win_info *w)
+void	load_texture_mur(t_win_info *w)
 {
 	int a;
 	int b;
@@ -21,8 +21,8 @@ int	load_texture_mur(t_win_info *w)
 	w->tex[1].img = mlx_xpm_file_to_image(w->mlx, "./assets/3.XPM", &a, &b);
 	w->tex[2].img = mlx_xpm_file_to_image(w->mlx, "./assets/4.XPM", &a, &b);
 	w->tex[3].img = mlx_xpm_file_to_image(w->mlx, "./assets/2.XPM", &a, &b);
-	if (!(w->tex[0].img || w->tex[1].img || w->tex[2].img || w->tex[3].img))
-		return (0);
+	if (!(w->tex[0].img && w->tex[1].img && w->tex[2].img && w->tex[3].img))
+		read_error(2);
 	w->tex[0].str = mlx_get_data_addr(w->tex[0].img,
 									&w->tex[0].b, &w->tex[0].s, &w->tex[0].e);
 	w->tex[1].str = mlx_get_data_addr(w->tex[1].img,
@@ -31,10 +31,9 @@ int	load_texture_mur(t_win_info *w)
 									&w->tex[2].b, &w->tex[2].s, &w->tex[2].e);
 	w->tex[3].str = mlx_get_data_addr(w->tex[3].img,
 									&w->tex[3].b, &w->tex[3].s, &w->tex[3].e);
-	return (1);
 }
 
-int	load_texture_sprite(t_win_info *w)
+void	load_texture_sprite(t_win_info *w)
 {
 	int a;
 	int b;
@@ -47,8 +46,8 @@ int	load_texture_sprite(t_win_info *w)
 		"./assets/MP-Frame4.XPM", &a, &b);
 	w->tex[7].img = mlx_xpm_file_to_image(w->mlx, "./assets/hitle.XPM", &a, &b);
 	w->tex[8].img = mlx_xpm_file_to_image(w->mlx, "./assets/dead.XPM", &a, &b);
-	if (!(w->tex[4].img || w->tex[5].img || w->tex[6].img || w->tex[7].img))
-		return (0);
+	if (!(w->tex[4].img && w->tex[5].img && w->tex[6].img && w->tex[7].img))
+		read_error(2);
 	w->tex[4].str = mlx_get_data_addr(w->tex[4].img,
 									&w->tex[4].b, &w->tex[4].s, &w->tex[4].e);
 	w->tex[5].str = mlx_get_data_addr(w->tex[5].img,
@@ -59,5 +58,4 @@ int	load_texture_sprite(t_win_info *w)
 									&w->tex[7].b, &w->tex[7].s, &w->tex[7].e);
 	w->tex[8].str = mlx_get_data_addr(w->tex[8].img,
 									&w->tex[8].b, &w->tex[8].s, &w->tex[8].e);
-	return (1);
 }

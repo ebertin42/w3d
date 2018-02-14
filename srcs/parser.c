@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:50:21 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/09 14:08:15 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:39:42 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_line	*alloc_data(char *file)
 
 	cl = count_line_file(file);
 	if (!(data = (t_line*)malloc(sizeof(t_line) * cl)))
-		return (NULL);
+		read_error(3);
 	data[0].cl = cl;
 	return (data);
 }
@@ -39,15 +39,15 @@ t_line			*read_data(char *file)
 	while ((cl = get_next_line(fd, &line)) > 0)
 	{
 		if ((!*line && !i) || cl == -1)
-			return (NULL);
+			read_error(1);
 		if (!(data[i].line = ft_strsplit(line, ' ')))
-			return (NULL);
+			read_error(1);
 		data[i].nb_point = ft_countwords(line, ' ');
 		i++;
 		free(line);
 	}
 	if ((!cl && !i) || (cl == -1))
-		return (NULL);
+		read_error(1);
 	close(fd);
 	return (data);
 }

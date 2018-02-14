@@ -6,11 +6,31 @@
 /*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:54:25 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 19:07:36 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:43:22 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
+
+void    free_data(t_line *data)
+{
+	int i;
+	int j;
+
+	j = 0;
+	while (j < data->cl)
+	{
+		i = 0;
+		while (i < 32)
+		{
+			free(data[j].line[i]);
+			i++;
+		}
+		free(data[j].line);
+		j++;
+	}
+	free(data);
+}
 
 void	menu_bombe(t_win_info w, int x, int y, int token)
 {
@@ -31,6 +51,7 @@ void	new_game(t_win_info *w)
 	check_good_nbdata(data);
 	translate(data, w);
 	init_data(w, 42);
+	free_data(data);
 }
 
 void	message_change(t_win_info *w)

@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 19:48:42 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:35:21 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	put_sprite_wep(t_win_info *w, int texid)
 		while (x < SIZE_X)
 		{
 			color = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-				((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
+					((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
 				w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-				((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
+						((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
 				(w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-				((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
+									((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
 			if (color != 4288151432)
 				put_pixel_image(x, y, color, w);
 			x++;
@@ -65,13 +65,19 @@ void	init_data(t_win_info *w, int token)
 	w->player.pos_y = w->player.start_y;
 	w->player.fov = 60;
 	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
-	w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
-	w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
-	w->sky.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
-	w->sky.str = mlx_get_data_addr(w->sky.img, &w->sky.b, &w->sky.s, &w->sky.e);
-	w->pid = fork();
-	if (w->pid == 0)
-		child();
+	if (token == 1)
+	{
+		w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
+		w->sky.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
+		if(!(w->sky.img && w->img.img))
+			read_error(2);
+		w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
+		w->sky.str = mlx_get_data_addr(w->sky.img, &w->sky.b, &w->sky.s, &w->sky.e);
+		w->pid = fork();
+		if (w->pid == 0)
+			child();
+	}
+
 }
 
 void	init_menu(t_win_info *w)
@@ -93,6 +99,10 @@ void	init_menu(t_win_info *w)
 	w->m.bombe = mlx_xpm_file_to_image(w->mlx, "assets/menu/bombe.XPM", &a, &b);
 	w->m.gameover = mlx_xpm_file_to_image(w->mlx, "assets/menu/gameover.XPM",
 			&a, &b);
+	w->h = mlx_xpm_file_to_image(w->mlx, "assets/h.xpm", &a, &b);
+	w->k = mlx_xpm_file_to_image(w->mlx, "assets/ammo.xpm", &a, &b);
+	if(!(w->m.menu && w->m.gameover && w->m.credits && w->m.settings && w->m.bombe && w->h && w->k))
+		read_error(2);
 }
 
 int		main(int ac, char **av)
@@ -106,6 +116,7 @@ int		main(int ac, char **av)
 	data = read_data(av[1]);
 	check_good_nbdata(data);
 	translate(data, &w);
+	free_data(data);
 	ennemies_place(w.map);
 	w.m.statut = 0;
 	w.mlx = mlx_init();

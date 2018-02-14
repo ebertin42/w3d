@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:11:17 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 17:53:36 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:33:16 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,9 @@ void	hud(t_win_info *w)
 
 void	image_hud(t_win_info *w)
 {
-	int		hei;
-	int		len;
-	void	*h;
-	void	*k;
-
-	h = mlx_xpm_file_to_image(w->mlx, "assets/h.xpm", &len, &hei);
-	mlx_put_image_to_window(w->mlx, w->win, h,
+	mlx_put_image_to_window(w->mlx, w->win, w->k, 40, 7);
+	mlx_put_image_to_window(w->mlx, w->win, w->h,
 		(SIZE_X / 2) + (SIZE_X / 4) + (SIZE_X / 16) - 25, 13);
-	k = mlx_xpm_file_to_image(w->mlx, "assets/ammo.xpm", &len, &hei);
-	mlx_put_image_to_window(w->mlx, w->win, k, 40, 7);
+
 	ammo(w);
 }

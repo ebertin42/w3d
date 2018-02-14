@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:31:28 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/12 16:24:33 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:42:07 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,9 @@ void	read_error(int error)
 		ft_putstr("\nOPEN ERROR:\n - the file is not valid file.\n\n");
 	else if (error == 1)
 		ft_putstr("\nREAD ERROR:\n - the file can't be read.\n\n");
+	else if (error == 2)
+		ft_putstr("\nTEXTURE ERROR:\n - a texture can't be load\n\n");
+	else if (error == 3)
+		ft_putstr("\nMALLOC ERROR: \n - a malloc failed\n\n");
 	exit(0);
 }

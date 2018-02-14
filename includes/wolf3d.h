@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 19:51:07 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:38:30 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ typedef struct		s_win_info
 	void			*mlx;
 	void			*win;
 	void			*menu;
+	void			*h;
+	void			*k;
 	t_player		player;
 	t_img			img;
 	t_img			tex[9];
@@ -185,8 +187,8 @@ void				hud(t_win_info *w);
 void				image_hud(t_win_info *w);
 int					get_color(int y, t_win_info w, t_obstacle ob);
 void				draw(int x, t_win_info *w, t_obstacle ob);
-int					load_texture_mur(t_win_info *w);
-int					load_texture_sprite(t_win_info *w);
+void				load_texture_mur(t_win_info *w);
+void				load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
 void				child();
 void				file_image(t_win_info *w);
@@ -212,5 +214,6 @@ void				message_change(t_win_info *w);
 int					key_release(int key, void *param);
 void				ft_moove(t_win_info *w, int key);
 void				deplacement(t_win_info *w, int keycode);
+void				free_data(t_line *data);
 
 #endif
