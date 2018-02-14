@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/14 13:38:30 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 14:01:48 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void				draw(int x, t_win_info *w, t_obstacle ob);
 void				load_texture_mur(t_win_info *w);
 void				load_texture_sprite(t_win_info *w);
 void				put_sprite_wep(t_win_info *w, int texid);
-void				child();
+void				start_child(t_win_info *w);
 void				file_image(t_win_info *w);
 void				ammo(t_win_info *w);
 void				ennemies_place(double tab[32][32]);

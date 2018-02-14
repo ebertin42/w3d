@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/14 13:53:37 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 14:07:19 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ void	init_data(t_win_info *w, int token)
 			read_error(2);
 		w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
 		w->sky.str = mlx_get_data_addr(w->sky.img, &w->sky.b, &w->sky.s, &w->sky.e);
-		w->pid = fork();
-		if (w->pid == 0)
-			child();
 	}
-
+	else
+		start_child(w);
 }
 
 void	init_menu(t_win_info *w)
