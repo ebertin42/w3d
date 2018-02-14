@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/14 14:01:48 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/14 17:56:55 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,14 @@ typedef struct		s_hit_mob
 	t_intersection	b;
 }					t_hit_mob;
 
+typedef struct		s_minimap
+{
+	int				x;
+	int				y;
+	int				i;
+	int				j;
+}					t_minimap;
+
 typedef struct		s_win_info
 {
 	char			*str;
@@ -215,5 +223,7 @@ int					key_release(int key, void *param);
 void				ft_moove(t_win_info *w, int key);
 void				deplacement(t_win_info *w, int keycode);
 void				free_data(t_line *data);
+void				player_init(t_win_info *w);
+void				minimap(t_win_info *w);
 
 #endif

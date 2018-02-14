@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:11:17 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/14 13:33:16 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 17:00:55 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ void	hud(t_win_info *w)
 {
 	life_point(w);
 	cursor(w);
+	minimap(w);
 }
 
 void	image_hud(t_win_info *w)
 {
-	mlx_put_image_to_window(w->mlx, w->win, w->k, 40, 7);
+	mlx_put_image_to_window(w->mlx, w->win, w->k, 42, 443);
 	mlx_put_image_to_window(w->mlx, w->win, w->h,
 		(SIZE_X / 2) + (SIZE_X / 4) + (SIZE_X / 16) - 25, 13);
-
 	ammo(w);
 }

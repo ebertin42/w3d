@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/14 14:12:00 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/14 14:54:09 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	put_sprite_wep(t_win_info *w, int texid)
 			color = w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
 					((int)(y / SIZE_Y * 128) * w->tex[texid].s))] +
 				w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-						((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] * 256 +
+						((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 1] *
+				256 +
 				(w->tex[texid].str[(((int)(x / SIZE_X * 128) * 4) +
-									((int)(y / SIZE_Y * 128) * w->tex[texid].s)) + 2] * 256) * 256;
+									((int)(y / SIZE_Y * 128) *
+									w->tex[texid].s)) + 2] * 256) * 256;
 			if (color != 4288151432)
 				put_pixel_image(x, y, color, w);
 			x++;
@@ -51,12 +53,8 @@ void	init_key(t_win_info *w)
 void	init_data(t_win_info *w, int token)
 {
 	int a;
-	int b;
 
-	w->player.sprint = 1;
-	w->player.life = 100;
-	w->player.dir_x = 0;
-	w->player.ammo = 8;
+	player_init(w);
 	w->id = 4;
 	w->player.dir_y = 0;
 	w->player.pos_x = w->player.start_x;
@@ -66,12 +64,14 @@ void	init_data(t_win_info *w, int token)
 	if (token == 1)
 	{
 		init_key(w);
-		w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
-		w->sky.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &b);
-		if(!(w->sky.img && w->img.img))
+		w->img.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &a);
+		w->sky.img = mlx_xpm_file_to_image(w->mlx, "./assets/1.xpm", &a, &a);
+		if (!(w->sky.img && w->img.img))
 			read_error(2);
-		w->img.str = mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
-		w->sky.str = mlx_get_data_addr(w->sky.img, &w->sky.b, &w->sky.s, &w->sky.e);
+		w->img.str =
+			mlx_get_data_addr(w->img.img, &w->img.b, &w->img.s, &w->img.e);
+		w->sky.str =
+			mlx_get_data_addr(w->sky.img, &w->sky.b, &w->sky.s, &w->sky.e);
 	}
 	else
 		start_child(w);
@@ -98,7 +98,8 @@ void	init_menu(t_win_info *w)
 			&a, &b);
 	w->h = mlx_xpm_file_to_image(w->mlx, "assets/h.xpm", &a, &b);
 	w->k = mlx_xpm_file_to_image(w->mlx, "assets/ammo.xpm", &a, &b);
-	if(!(w->m.menu && w->m.gameover && w->m.credits && w->m.settings && w->m.bombe && w->h && w->k))
+	if (!(w->m.menu && w->m.gameover && w->m.credits && w->m.settings
+				&& w->m.bombe && w->h && w->k))
 		read_error(2);
 }
 

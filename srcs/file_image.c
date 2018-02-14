@@ -6,7 +6,7 @@
 /*   By: ebertin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 12:34:34 by ebertin           #+#    #+#             */
-/*   Updated: 2018/02/13 08:38:57 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/14 16:58:01 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ammo(t_win_info *w)
 	tmp = ft_convert(w->player.ammo);
 	ammo = ft_strjoin(tmp, "/8");
 	free(tmp);
-	mlx_string_put(w->mlx, w->win, 10, 10, 0xEEEEEE, ammo);
+	mlx_string_put(w->mlx, w->win, 10, 450, 0xEEEEEE, ammo);
 	free(ammo);
 }
 

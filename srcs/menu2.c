@@ -6,13 +6,13 @@
 /*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:54:25 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/14 13:43:22 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 14:39:42 by ebertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
 
-void    free_data(t_line *data)
+void	free_data(t_line *data)
 {
 	int i;
 	int j;
