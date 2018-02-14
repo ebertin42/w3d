@@ -6,11 +6,36 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/13 19:52:06 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/14 14:02:40 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
+
+void	damage(t_win_info *w)
+{
+	static int mob_v = 0;
+
+	if (w->map[(int)w->player.pos_y / IBLOC][(int)w->player.pos_x / IBLOC] \
+			== MONSTER)
+	{
+		if (mob_v == 0)
+			w->player.life -= 15;
+		mob_v++;
+		if (mob_v >= 3)
+			mob_v = 0;
+		if (w->player.life <= 0)
+		{
+			w->player.pos_x = w->player.start_x;
+			w->player.pos_y = w->player.start_y;
+			w->player.life = 100;
+			menu_bombe(*w, 160, 170, 0);
+			w->m.statut = 42;
+		}
+	}
+	if (w->m.statut == 1)
+		raycasting(*w, w->id);
+}
 
 void	deplacement(t_win_info *w, int keycode)
 {
@@ -36,31 +61,7 @@ void	deplacement(t_win_info *w, int keycode)
 		w->player.pos_x = tmp_x;
 		w->player.pos_y = tmp_y;
 	}
-}
-
-void	damage(t_win_info *w)
-{
-	static int mob_v = 0;
-
-	if (w->map[(int)w->player.pos_y / IBLOC][(int)w->player.pos_x / IBLOC] \
-			== MONSTER)
-	{
-		if (mob_v == 0)
-			w->player.life -= 15;
-		mob_v++;
-		if (mob_v >= 3)
-			mob_v = 0;
-		if (w->player.life <= 0)
-		{
-			w->player.pos_x = w->player.start_x;
-			w->player.pos_y = w->player.start_y;
-			w->player.life = 100;
-			menu_bombe(*w, 160, 170, 0);
-			w->m.statut = 42;
-		}
-	}
-	if (w->m.statut == 1)
-		raycasting(*w, w->id);
+	damage(w);
 }
 
 void	init_mob_ray(t_hit_mob *v, t_win_info *w)
