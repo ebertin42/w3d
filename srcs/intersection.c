@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/14 14:03:38 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/16 11:57:23 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 static void		calc_co(double xa, double ya, t_intersection *a, t_win_info w)
 {
+	a->n_mob = 0;
 	while (((int)(a->x / BLOC) < 32 && (int)(a->x / BLOC) > 0) &&
 		(int)(a->y / BLOC) < 32 && (int)(a->y / BLOC) > 0)
 	{
+		if (w.map[(int)(a->y / BLOC)][(int)(a->x / BLOC)] == MONSTER ||
+		w.map[(int)(a->y / BLOC)][(int)(a->x / BLOC)] == MONSTER + 1)
+			a->n_mob++;
 		if (w.map[(int)(a->y / BLOC)][(int)(a->x / BLOC)] == a->obstacle)
 		{
 			a->token = 1;
@@ -92,6 +96,8 @@ int				raycasting(t_win_info w, int test)
 		alpha = (w.player.dir_x + (w.player.fov / 2)) -
 			((w.player.fov / SIZE_X) * x);
 		wall_detection(&v.ob, w, alpha);
+		if (v.ob.n_mob != 0)
+		printf("%d\n", v.ob.n_mob);
 		mob_detection(&v.ob_mob, w, alpha, MONSTER);
 		mob_detection(&v.ob_mob_dead, w, alpha, 8);
 		draw(x, &w, v.ob);

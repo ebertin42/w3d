@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/02/14 16:23:48 by ebertin          ###   ########.fr        #
+#    Updated: 2018/02/16 11:14:54 by fde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRC_NAME =	hud.c \
 			error.c \
 			image.c  \
 			parser.c  \
-			radian.c   \
 			translate.c \
 			intersection.c \
 			load_texture.c \

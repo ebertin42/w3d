@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/14 17:56:55 by ebertin          ###   ########.fr       */
+/*   Updated: 2018/02/16 11:55:26 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct		s_intersection
 	int				dist;
 	int				token;
 	int				obstacle;
+	int				n_mob;
 }					t_intersection;
 
 typedef struct		s_obstacle
@@ -79,6 +80,7 @@ typedef struct		s_obstacle
 	int				texid;
 	int				col;
 	int				token;
+	int				n_mob;
 }					t_obstacle;
 
 typedef struct		s_all_ob

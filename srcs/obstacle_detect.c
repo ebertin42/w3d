@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:06:04 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 18:14:22 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 11:53:43 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int						wall_detection(t_obstacle *ob,
 		ob->dist = r.b.dist;
 	get_texid(alpha, ob, r);
 	ob->h = BLOC / ob->dist * w.dist_player_proj;
+	ob->n_mob = r.a.dist > r.b.dist ? r.b.n_mob : r.a.n_mob;
 	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC :
 														(int)r.a.x % (int)BLOC;
 	return (1);
