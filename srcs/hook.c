@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 11:13:18 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 14:13:56 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	damage(t_win_info *w)
 			w->player.pos_x = w->player.start_x;
 			w->player.pos_y = w->player.start_y;
 			w->player.life = 100;
-			menu_bombe(*w, 160, 170, 0);
+			menu_bombe(*w, 97, 217, 2);
 			w->m.statut = 42;
 		}
 	}
