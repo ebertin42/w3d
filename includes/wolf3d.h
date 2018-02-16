@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 12:02:05 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/16 13:58:47 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,12 @@ typedef struct		s_hit_mob
 	t_intersection	b;
 }					t_hit_mob;
 
+typedef struct		s_dec
+{
+	double xa;
+	double ya;
+}					t_dec;
+
 typedef struct		s_minimap
 {
 	int				x;
@@ -205,7 +211,7 @@ void				file_image(t_win_info *w);
 void				ammo(t_win_info *w);
 void				ennemies_place(double tab[32][32]);
 int					mob_detection(t_obstacle *ob, t_win_info w, double alpha,
-		int state, int m);
+		int m);
 int					wall_detection(t_obstacle *ob, t_win_info w, double alpha);
 t_intersection		find_intersection_ver(double alpha, t_win_info w, \
 		int obstacle);
@@ -227,5 +233,6 @@ void				deplacement(t_win_info *w, int keycode);
 void				free_data(t_line *data);
 void				player_init(t_win_info *w);
 void				minimap(t_win_info *w);
+t_intersection		set(t_intersection *a);
 
 #endif

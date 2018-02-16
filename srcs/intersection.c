@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 13:20:01 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/16 14:05:58 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_intersection	find_intersection_ver(double alpha, t_win_info w, int obstacle)
 	return (a);
 }
 
-int				raycasting(t_win_info w, int test)
+int				raycasting(t_win_info w, int id)
 {
 	t_all_ob		v;
 	double			alpha;
@@ -99,15 +99,14 @@ int				raycasting(t_win_info w, int test)
 		draw(x, &w, v.ob);
 		while (v.ob.n_mob != 0)
 		{
-			mob_detection(&v.ob_mob, w, alpha, MONSTER, v.ob.n_mob);
-			if (v.ob.dist > v.ob_mob.dist)
-				draw(x, &w, v.ob_mob);
+			mob_detection(&v.ob_mob, w, alpha, v.ob.n_mob);
+			v.ob.dist > v.ob_mob.dist ? draw(x, &w, v.ob_mob) : 0;
 			v.ob.n_mob--;
 		}
 		x++;
 	}
 	hud(&w);
-	put_sprite_wep(&w, test);
+	put_sprite_wep(&w, id);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.img, 0, 0);
 	image_hud(&w);
 	return (0);

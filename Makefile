@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/02/16 11:14:54 by fde-souz         ###   ########.fr        #
+#    Updated: 2018/02/16 14:01:11 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC_NAME =	hud.c \
 			move.c \
 			obstacle_detect.c \
 			menu2.c \
-			minimap.c
+			minimap.c\
+			mob_detection.c
 
 all: $(NAME)
 
