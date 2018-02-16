@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 11:57:23 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 13:20:01 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,14 @@ int				raycasting(t_win_info w, int test)
 		alpha = (w.player.dir_x + (w.player.fov / 2)) -
 			((w.player.fov / SIZE_X) * x);
 		wall_detection(&v.ob, w, alpha);
-		if (v.ob.n_mob != 0)
-		printf("%d\n", v.ob.n_mob);
-		mob_detection(&v.ob_mob, w, alpha, MONSTER);
-		mob_detection(&v.ob_mob_dead, w, alpha, 8);
 		draw(x, &w, v.ob);
-		if (v.ob_mob.token == 1 && v.ob.dist > v.ob_mob.dist)
-			draw(x, &w, v.ob_mob);
-		if (v.ob_mob_dead.token == 1 && v.ob.dist > v.ob_mob_dead.dist)
-			draw(x, &w, v.ob_mob_dead);
+		while (v.ob.n_mob != 0)
+		{
+			mob_detection(&v.ob_mob, w, alpha, MONSTER, v.ob.n_mob);
+			if (v.ob.dist > v.ob_mob.dist)
+				draw(x, &w, v.ob_mob);
+			v.ob.n_mob--;
+		}
 		x++;
 	}
 	hud(&w);

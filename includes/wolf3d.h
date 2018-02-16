@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 11:55:26 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 12:02:05 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void				file_image(t_win_info *w);
 void				ammo(t_win_info *w);
 void				ennemies_place(double tab[32][32]);
 int					mob_detection(t_obstacle *ob, t_win_info w, double alpha,
-		int state);
+		int state, int m);
 int					wall_detection(t_obstacle *ob, t_win_info w, double alpha);
 t_intersection		find_intersection_ver(double alpha, t_win_info w, \
 		int obstacle);
