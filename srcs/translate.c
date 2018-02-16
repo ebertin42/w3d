@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:03:15 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/13 18:29:13 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 19:15:03 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ void		ennemies_place(double tab[32][32])
 				if (!((tab[y][x - 1] == 1 && tab[y][x + 1] == 1) || \
 							(tab[y - 1][x] == 1 && tab[y + 1][x] == 1)))
 					map_error(4);
+			}
+			if (tab[y][x] == 1)
+			{
+				if (tab[y][x - 1] == 0 && tab[y][x + 1] == 0 && \
+							tab[y - 1][x] == 0 && tab[y + 1][x] == 0)
+					map_error(5);
 			}
 			x++;
 		}

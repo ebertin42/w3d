@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mob_detection.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgauther <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 13:55:38 by vgauther          #+#    #+#             */
-/*   Updated: 2018/02/16 13:58:04 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/16 19:05:02 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void		calc_co_m(t_dec d, t_intersection *a,
 			(int)(a->y / BLOC) < 32 && (int)(a->y / BLOC) > 0)
 	{
 		if (w.map[(int)(a->y / BLOC)][(int)(a->x / BLOC)] == MONSTER ||
-				w.map[(int)(a->y / BLOC)][(int)(a->x / BLOC)] == MONSTER + 1)
+				w.map[(int)(a->y / BLOC)][(int)(a->x / BLOC)] == MONSTER +
+				w.deadornot)
 		{
 			a->token = 1;
 			i++;
@@ -100,11 +101,13 @@ int				mob_detection(t_obstacle *ob, t_win_info w,
 		ob->dist = r.a.dist;
 	else if (r.b.dist > 0)
 		ob->dist = r.b.dist;
-	ob->texid = r.a.dist > r.b.dist ? w.map[(int)r.b.y / IBLOC][(int)r.b.x /
-		IBLOC] : w.map[(int)r.a.y / IBLOC][(int)r.a.y];
+	ob->texid = ob->dist == r.b.dist ? w.map[(int)r.b.y / IBLOC][(int)r.b.x /
+		IBLOC] : w.map[(int)r.a.y / IBLOC][(int)r.a.x / IBLOC];
 	ob->h = BLOC / ob->dist * w.dist_player_proj;
 	ob->col = r.a.dist > r.b.dist ? (int)r.b.y % (int)BLOC :
 		(int)r.a.x % (int)BLOC;
-	ob->token = r.a.dist > r.b.dist ? r.b.token : r.a.token;
+	ob->token = ob->dist == r.b.dist ? r.b.token : r.a.token;
+	ob->x = ob->dist == r.b.dist ? (int)(r.b.x / BLOC) : (int)(r.a.x / BLOC);
+	ob->y = ob->dist == r.b.dist ? (int)(r.b.y / BLOC) : (int)(r.a.y / BLOC);
 	return (0);
 }

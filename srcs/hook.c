@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:18:46 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 14:13:56 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/16 19:05:24 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	init_mob_ray(t_hit_mob *v, t_win_info *w)
 
 void	hit_mob(t_win_info *w)
 {
-	t_hit_mob	v;
+	t_obstacle	ob;
 
 	w->id = (w->id + 1) > 6 ? 4 : (w->id + 1);
 	if (w->player.ammo == 0)
@@ -90,13 +90,12 @@ void	hit_mob(t_win_info *w)
 		w->player.ammo--;
 		system("afplay ./sounds/explode.wav &");
 	}
-	init_mob_ray(&v, w);
-	if (v.token == 1)
-	{
-		v.a.x = v.a.dist > v.b.dist ? v.b.x / BLOC : v.a.x / BLOC;
-		v.a.y = v.a.dist > v.b.dist ? v.b.y / BLOC : v.a.y / BLOC;
-		w->map[(int)v.a.y][(int)v.a.x] = 8;
-	}
+	w->deadornot = 0;
+	mob_detection(&ob, *w, w->player.dir_x, 1);
+	w->deadornot = 1;
+	printf("%d\n", ob.token);
+	if (ob.token == 1)
+		w->map[ob.y][ob.x] = 8;
 }
 
 int		key_hook(int key, void *param)

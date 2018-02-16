@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 18:05:33 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 19:02:32 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct		s_obstacle
 	int				col;
 	int				token;
 	int				n_mob;
+	int				x;
+	int				y;
 }					t_obstacle;
 
 typedef struct		s_all_ob
@@ -188,6 +190,7 @@ typedef struct		s_win_info
 	int				id;
 	pid_t			pid;
 	t_menu			m;
+	int				deadornot;
 }					t_win_info;
 
 t_line				*read_data(char *file);

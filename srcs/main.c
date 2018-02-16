@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:43:01 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 17:54:53 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 19:03:14 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ void	init_data(t_win_info *w, int token)
 	player_init(w);
 	w->id = 4;
 	w->player.dir_y = 0;
-	w->player.dir_x = 60;
 	w->player.pos_x = w->player.start_x;
 	w->player.pos_y = w->player.start_y;
 	w->player.fov = 60;
 	w->dist_player_proj = (SIZE_X / 2) / tan((w->player.fov / 2) * RAD);
+	w->deadornot = 1;
 	if (token == 1)
 	{
 		init_key(w);

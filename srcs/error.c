@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 19:31:28 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 11:12:59 by fde-souz         ###   ########.fr       */
+/*   Updated: 2018/02/16 19:14:39 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	map_error(int error)
 		ft_putstr("\nMAP ERROR:\n - the border are not full of wall\n\n");
 	else if (error == 4)
 		ft_putstr("\nMAP ERROR:\n - ennemies are not on the good place\n\n");
+	else if (error == 5)
+		ft_putstr("\nMAP ERROR:\n - walls are not on the good place\n\n");
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/02/16 18:12:14 by fde-souz         ###   ########.fr        #
+#    Updated: 2018/02/16 18:19:05 by fde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = wolf3d
 
 CC = gcc
-CC_FLAGS = -Wall -Werror -Wextra
+CC_FLAGS = -Wall -Werror -Wextra -g3
 
 SRC_PATH = ./srcs/
 INC_PATH = ./includes/
