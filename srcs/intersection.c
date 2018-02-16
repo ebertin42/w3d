@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:10:08 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 14:05:58 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/16 18:05:41 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,25 +85,23 @@ t_intersection	find_intersection_ver(double alpha, t_win_info w, int obstacle)
 
 int				raycasting(t_win_info w, int id)
 {
-	t_all_ob		v;
-	double			alpha;
-	int				x;
+	pthread_t	ray_thread[8];
+	int			i;
 
+	i = 0;
 	file_image(&w);
-	x = 0;
-	while (x <= SIZE_X)
+	pthread_create(&ray_thread[0], NULL, thread1, &w);
+	pthread_create(&ray_thread[1], NULL, thread2, &w);
+	pthread_create(&ray_thread[2], NULL, thread3, &w);
+	pthread_create(&ray_thread[3], NULL, thread4, &w);
+	pthread_create(&ray_thread[4], NULL, thread5, &w);
+	pthread_create(&ray_thread[5], NULL, thread6, &w);
+	pthread_create(&ray_thread[6], NULL, thread7, &w);
+	pthread_create(&ray_thread[7], NULL, thread8, &w);
+	while (i < 8)
 	{
-		alpha = (w.player.dir_x + (w.player.fov / 2)) -
-			((w.player.fov / SIZE_X) * x);
-		wall_detection(&v.ob, w, alpha);
-		draw(x, &w, v.ob);
-		while (v.ob.n_mob != 0)
-		{
-			mob_detection(&v.ob_mob, w, alpha, v.ob.n_mob);
-			v.ob.dist > v.ob_mob.dist ? draw(x, &w, v.ob_mob) : 0;
-			v.ob.n_mob--;
-		}
-		x++;
+		pthread_join(ray_thread[i], NULL);
+		i++;
 	}
 	hud(&w);
 	put_sprite_wep(&w, id);

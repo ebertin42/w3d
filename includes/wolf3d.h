@@ -6,7 +6,7 @@
 /*   By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 11:40:35 by fde-souz          #+#    #+#             */
-/*   Updated: 2018/02/16 13:58:47 by vgauther         ###   ########.fr       */
+/*   Updated: 2018/02/16 18:05:33 by fde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <signal.h>
+# include <pthread.h>
 
 # define SIZE_X 720
 # define SIZE_Y 480
@@ -234,5 +235,13 @@ void				free_data(t_line *data);
 void				player_init(t_win_info *w);
 void				minimap(t_win_info *w);
 t_intersection		set(t_intersection *a);
+void				*thread1(void *param);
+void				*thread2(void *param);
+void				*thread3(void *param);
+void				*thread4(void *param);
+void				*thread5(void *param);
+void				*thread6(void *param);
+void				*thread7(void *param);
+void				*thread8(void *param);
 
 #endif

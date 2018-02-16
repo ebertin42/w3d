@@ -6,7 +6,7 @@
 #    By: fde-souz <fde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 11:52:57 by fde-souz          #+#    #+#              #
-#    Updated: 2018/02/16 14:01:11 by vgauther         ###   ########.fr        #
+#    Updated: 2018/02/16 18:12:14 by fde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,10 @@ SRC_NAME =	hud.c \
 			move.c \
 			obstacle_detect.c \
 			menu2.c \
-			minimap.c\
-			mob_detection.c
+			minimap.c \
+			mob_detection.c \
+			thread.c \
+			thread2.c
 
 all: $(NAME)
 
@@ -57,7 +59,7 @@ $(NAME): $(OBJ)
 	@gcc ./Mke_src/loup.c -lm -L $(LFT_PATH) -lft
 	@./a.out
 	@rm a.out
-	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft -lm -L $(MLX_PATH) -lmlx -lm -framework OpenGL -framework AppKit
+	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft -lm -L $(MLX_PATH) -lmlx -lm -framework OpenGL -framework AppKit -lpthread
 	@echo "[✓] EXECUTABLE WOLF 3D DONE"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
