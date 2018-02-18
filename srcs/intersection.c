@@ -98,6 +98,24 @@ int				raycasting(t_win_info w, int id)
 	pthread_create(&ray_thread[5], NULL, thread6, &w);
 	pthread_create(&ray_thread[6], NULL, thread7, &w);
 	pthread_create(&ray_thread[7], NULL, thread8, &w);
+	/*
+	while (pthread_create(&ray_thread[0], NULL, thread1, &w) == NULL)
+		;
+	while (pthread_create(&ray_thread[1], NULL, thread2, &w) == NULL)
+		;
+	while (pthread_create(&ray_thread[2], NULL, thread3, &w) == NULL)
+		;
+	while (pthread_create(&ray_thread[3], NULL, thread4, &w) == NULL)
+		;
+	while (pthread_create(&ray_thread[4], NULL, thread5, &w) == NULL)
+		;
+	while (pthread_create(&ray_thread[5], NULL, thread6, &w) == NULL)
+		;
+	while (pthread_create(&ray_thread[6], NULL, thread7, &w) == NULL)
+		;
+	while (pthread_create(&ray_thread[7], NULL, thread8, &w) == NULL)
+		;
+	*/
 	while (i < 8)
 	{
 		pthread_join(ray_thread[i], NULL);
